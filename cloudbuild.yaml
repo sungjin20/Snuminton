@@ -1,0 +1,34 @@
+steps:
+  # 1. Docker 이미지 빌드
+  # 기존 명령어: docker build --no-cache -t gcr.io/sodium-diode-445205-v1/flask-kakao-app .
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/flask-kakao-app:$SHORT_SHA', '.']
+    # $PROJECT_ID와 $SHORT_SHA는 Cloud Build가 자동으로 채워주는 변수입니다.
+
+  # 2. 빌드한 이미지를 Container Registry에 푸시
+  # 이 단계는 아래 'images' 섹션에서 자동으로 처리됩니다.
+  # 기존 명령어: docker push gcr.io/sodium-diode-445205-v1/flask-kakao-app
+
+  # 3. Cloud Run에 새 이미지 배포
+  # 기존 명령어: gcloud run deploy ...
+  - name: 'gcr.io/google-cloud-sdk/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'flask-kakao-app' # 배포할 Cloud Run 서비스 이름
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/flask-kakao-app:$SHORT_SHA'
+      - '--region'
+      - 'us-central1' # 기존에 사용하시던 리전
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+#      - '--set-env-vars'
+#      - 'GOOGLE_APPLICATION_CREDENTIALS=/app/sodium-diode-445205-v1-a62e0cedcb8d.json' # 기존 환경변수 설정
+
+# 이 섹션에 명시된 이미지는 빌드 성공 후 자동으로 GCR에 푸시됩니다.
+images:
+  - 'gcr.io/$PROJECT_ID/flask-kakao-app:$SHORT_SHA'
+
+# 빌드 타임아웃을 넉넉하게 설정
+timeout: '1200s'
