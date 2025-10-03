@@ -1,7 +1,7 @@
 steps:
   # 1. Docker 이미지 빌드
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/flask-kakao-app:$SHORT_SHA', '.']
+    args: ['build', '-t', 'gcr.io/sodium-diode-445205/flask-kakao-app:$SHORT_SHA', '.']
 
   # 2. Cloud Run에 새 이미지 배포
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -10,7 +10,7 @@ steps:
       - 'deploy'
       - 'flask-kakao-app'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/flask-kakao-app:$SHORT_SHA' # 고유 태그 사용
+      - 'gcr.io/sodium-diode-445205/flask-kakao-app:$SHORT_SHA' # 고유 태그 사용
       - '--region'
       - 'us-central1'
       - '--platform'
@@ -21,7 +21,7 @@ steps:
 
 # 이 섹션이 빌드 성공 후 자동으로 이미지를 푸시합니다.
 images:
-  - 'gcr.io/$PROJECT_ID/flask-kakao-app:$SHORT_SHA'
+  - 'gcr.io/sodium-diode-445205/flask-kakao-app:$SHORT_SHA'
 
 options:
   logging: CLOUD_LOGGING_ONLY
