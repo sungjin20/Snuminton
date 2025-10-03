@@ -1,9 +1,10 @@
 from flask import Flask, request, redirect, render_template_string, url_for, jsonify
 from google.cloud import storage
+from google.cloud import secretmanager
+from google.oauth2 import service_account
 import requests
 import json
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime, timedelta
 import re
 from collections import defaultdict
@@ -20,8 +21,17 @@ TEMPLATE_ID2 = "118349"
 
 app = Flask(__name__)
 
-client = storage.Client()
-bucket = client.get_bucket('snuminton_bucket')
+def get_secret(secret_id, credentials=None, version_id="latest"):
+    client = secretmanager.SecretManagerServiceClient(credentials=credentials)
+    name = f"projects/sodium-diode-445205-v1/secrets/{secret_id}/versions/{version_id}"
+    response = client.access_secret_version(request={"name": name})
+    payload = response.payload.data.decode("UTF-8")
+    return json.loads(payload)
+
+deploy_credentials_info = get_secret('deploy-key')
+deploy_credentials = service_account.Credentials.from_service_account_info(deploy_credentials_info)
+storage_client = storage.Client(credentials=deploy_credentials)
+bucket = storage_client.get_bucket('snuminton_bucket')
 
 # 로컬에서 테스트시 사용
 #with open('config_local.json', 'r', encoding='utf-8') as f:
@@ -763,9 +773,8 @@ def attendance_check(week):
             raise ValueError(f"지원되지 않는 요일: {day_of_week}")
 
         # 구글 스프레드시트 API 연결 설정
-        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name('snuminton-445111-1666fdfa321c.json', scope)
-        client = gspread.authorize(creds)
+        credentials_info = get_secret('gspread-credentials', credentials=deploy_credentials)
+        client = gspread.service_account_from_dict(credentials_info)
         
         # 한국어 요일에 해당하는 워크시트를 로드
         sheet = client.open_by_key(sheet_id).worksheet(korean_day_of_week)
@@ -1365,11 +1374,8 @@ def delete_row(week):
         return jsonify({"status": "error", "message": "잘못된 요일입니다."})
 
     try:
-        creds = ServiceAccountCredentials.from_json_keyfile_name('snuminton-445111-1666fdfa321c.json', [
-            "https://spreadsheets.google.com/feeds",
-            "https://www.googleapis.com/auth/drive"
-        ])
-        client = gspread.authorize(creds)
+        credentials_info = get_secret('gspread-credentials', credentials=deploy_credentials)
+        client = gspread.service_account_from_dict(credentials_info)
         sheet = client.open_by_key(sheet_id).worksheet(korean_day)
 
         data = request.get_json()
@@ -1746,9 +1752,8 @@ def etc_selection():
 @app.route("/get_existing_lateness_data", methods=["GET"])
 def get_existing_lateness_data():
     try:
-        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name('snuminton-445111-1666fdfa321c.json', scope)
-        client = gspread.authorize(creds)
+        credentials_info = get_secret('gspread-credentials', credentials=deploy_credentials)
+        client = gspread.service_account_from_dict(credentials_info)
         lateness_sheet = client.open_by_key("16VrMl9DrhpSnPoY03Lr0pVBCq6uqKLxvq0RsyAyDBZM").worksheet("지각콕")
 
         # 2행을 헤더로 설정하여 가져오기
@@ -1797,9 +1802,8 @@ def etc_check(week):
         if not korean_day_of_week:
             raise ValueError(f"지원되지 않는 요일: {day_of_week}")
 
-        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name('snuminton-445111-1666fdfa321c.json', scope)
-        client = gspread.authorize(creds)
+        credentials_info = get_secret('gspread-credentials', credentials=deploy_credentials)
+        client = gspread.service_account_from_dict(credentials_info)
 
         sheet = client.open_by_key(sheet_id).worksheet(korean_day_of_week)
         return sheet
@@ -1825,9 +1829,8 @@ def etc_check(week):
         lateness_data = data.get("lateness", [])
 
         # Google Sheets 인증 및 지각콕 명단 가져오기
-        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name('snuminton-445111-1666fdfa321c.json', scope)
-        client = gspread.authorize(creds)
+        credentials_info = get_secret('gspread-credentials', credentials=deploy_credentials)
+        client = gspread.service_account_from_dict(credentials_info)
         lateness_sheet = client.open_by_key("16VrMl9DrhpSnPoY03Lr0pVBCq6uqKLxvq0RsyAyDBZM").worksheet("지각콕")
 
         # 기존 지각콕 명단 데이터 가져오기

@@ -1,6 +1,6 @@
 flask
 requests
 gspread
-oauth2client
 google-cloud-storage
+google-cloud-secret-manager
 pytz
