@@ -8,7 +8,6 @@ WORKDIR /app
 RUN rm -rf /app/*
 COPY . /app
 
-# Copy service account key to the container
 # COPY sodium-diode-445205-v1-5f37a0f08bc1.json /app/
 
 # 필요한 라이브러리 설치
