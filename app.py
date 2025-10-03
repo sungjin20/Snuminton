@@ -28,10 +28,8 @@ def get_secret(secret_id, credentials=None, version_id="latest"):
     payload = response.payload.data.decode("UTF-8")
     return json.loads(payload)
 
-deploy_credentials_info = get_secret('deploy-key')
-deploy_credentials = service_account.Credentials.from_service_account_info(deploy_credentials_info)
-storage_client = storage.Client(credentials=deploy_credentials)
-bucket = storage_client.get_bucket('snuminton_bucket')
+storage_client = None
+bucket = None
 
 # 로컬에서 테스트시 사용
 #with open('config_local.json', 'r', encoding='utf-8') as f:
@@ -141,6 +139,21 @@ def get_auth_url(key, url):
         f"https://kauth.kakao.com/oauth/authorize"
         f"?client_id={key}&redirect_uri={url}&response_type=code&scope=profile_nickname,friends,talk_message"
     )
+
+def initialize_clients():
+    global storage_client, bucket
+
+    if storage_client is not None:
+        return
+    deploy_credentials_info = get_secret('deploy-key')
+    deploy_credentials = service_account.Credentials.from_service_account_info(deploy_credentials_info)
+    storage_client = storage.Client(credentials=deploy_credentials)
+    bucket = storage_client.get_bucket('snuminton_bucket')
+
+@app.before_first_request
+def setup():
+    """Flask 앱이 첫 요청을 받기 직전에 이 함수를 실행"""
+    initialize_clients()
 
 @app.route("/")
 def index():
