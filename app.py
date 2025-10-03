@@ -150,13 +150,9 @@ def initialize_clients():
     storage_client = storage.Client(credentials=deploy_credentials)
     bucket = storage_client.get_bucket('snuminton_bucket')
 
-@app.before_first_request
-def setup():
-    """Flask 앱이 첫 요청을 받기 직전에 이 함수를 실행"""
-    initialize_clients()
-
 @app.route("/")
 def index():
+    initialize_clients()
     auth_url_main = get_auth_url(REST_API_KEY, REDIRECT_URI)
     auth_url_schedule = get_auth_url(REST_API_KEY_schedule, REDIRECT_URI_schedule)
     return render_template_string("""
