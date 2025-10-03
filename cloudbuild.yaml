@@ -13,7 +13,7 @@ steps:
 
   # 3. Cloud Run에 새 이미지 배포
   # 기존 명령어: gcloud run deploy ...
-  - name: 'gcr.io/google-cloud-sdk/gcloud'
+  - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'run'
       - 'deploy'
