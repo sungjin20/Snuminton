@@ -21,7 +21,7 @@ steps:
       - 'managed'
       - '--allow-unauthenticated'
       - '--set-env-vars'
-      - 'GOOGLE_APPLICATION_CREDENTIALS=/app/sodium-diode-445205-v1-a62e0cedcb8d.json'
+      - 'GOOGLE_APPLICATION_CREDENTIALS=/app/sodium-diode-445205-v1-e09fff21c766.json'
 
 images:
   - 'gcr.io/sodium-diode-445205-v1/flask-kakao-app:$SHORT_SHA'
