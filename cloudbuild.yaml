@@ -1,4 +1,6 @@
 steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['version']
   # 1. Docker 이미지 빌드
   # 기존 명령어: docker build --no-cache -t gcr.io/sodium-diode-445205-v1/flask-kakao-app .
   - name: 'gcr.io/cloud-builders/docker'
@@ -25,6 +27,11 @@ steps:
       - '--allow-unauthenticated'
       - '--set-env-vars'
       - 'GOOGLE_APPLICATION_CREDENTIALS=/app/sodium-diode-445205-v1-a62e0cedcb8d.json' # 기존 환경변수 설정
+
+serviceAccount: 'projects/sodium-diode-445205-v1/serviceAccounts/202554592736-compute@developer.gserviceaccount.com'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
 
 # 이 섹션에 명시된 이미지는 빌드 성공 후 자동으로 GCR에 푸시됩니다.
 images:
