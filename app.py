@@ -9,7 +9,7 @@ import re
 from collections import defaultdict
 from pytz import timezone
 
-UPDATE_DATE = "2025년 9월 24일"
+UPDATE_DATE = "2025년 10월 03일"
 
 # 카카오 REST API 키와 리다이렉션 URI
 REST_API_KEY = "666e0e3f02f53266bf53e64b1ef1e464"
