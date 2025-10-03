@@ -9,7 +9,7 @@ RUN rm -rf /app/*
 COPY . /app
 
 # Copy service account key to the container
-#COPY sodium-diode-445205-v1-a62e0cedcb8d.json /app/
+COPY sodium-diode-445205-v1-a62e0cedcb8d.json /app/
 
 # 필요한 라이브러리 설치
 RUN pip install --no-cache-dir -r requirements.txt

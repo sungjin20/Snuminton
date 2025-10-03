@@ -23,8 +23,8 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
-#      - '--set-env-vars'
-#      - 'GOOGLE_APPLICATION_CREDENTIALS=/app/sodium-diode-445205-v1-a62e0cedcb8d.json' # 기존 환경변수 설정
+      - '--set-env-vars'
+      - 'GOOGLE_APPLICATION_CREDENTIALS=/app/sodium-diode-445205-v1-a62e0cedcb8d.json' # 기존 환경변수 설정
 
 # 이 섹션에 명시된 이미지는 빌드 성공 후 자동으로 GCR에 푸시됩니다.
 images:
