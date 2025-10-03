@@ -25,3 +25,6 @@ steps:
 
 images:
   - 'gcr.io/sodium-diode-445205-v1/flask-kakao-app:$SHORT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
