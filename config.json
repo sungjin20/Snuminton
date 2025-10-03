@@ -1,0 +1,5 @@
+{
+    "env": "server",
+    "REDIRECT_URI": "https://flask-kakao-app-202554592736.us-central1.run.app/oauth",
+    "REDIRECT_URI_schedule": "https://flask-kakao-app-202554592736.us-central1.run.app/oauth_schedule"
+}
