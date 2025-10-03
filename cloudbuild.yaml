@@ -1,7 +1,10 @@
 steps:
   # 1. Docker 이미지 빌드 (이 단계는 문제 없음)
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/flask-kakao-app:$SHORT_SHA', '.']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/flask-kakao-app', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/flask-kakao-app']
 
   # 2. Cloud Run에 새 이미지 배포 (이 단계의 'name'을 수정)
   - name: 'gcr.io/cloud-builders/gcloud' # <--- 수정된 부분
@@ -10,7 +13,7 @@ steps:
       - 'deploy'
       - 'flask-kakao-app'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/flask-kakao-app:$SHORT_SHA'
+      - 'gcr.io/$PROJECT_ID/flask-kakao-app'
       - '--region'
       - 'us-central1'
       - '--platform'
@@ -18,10 +21,6 @@ steps:
       - '--allow-unauthenticated'
       - '--set-env-vars'
       - 'GOOGLE_APPLICATION_CREDENTIALS=/app/sodium-diode-445205-v1-a62e0cedcb8d.json'
-
-# 빌드 성공 후 GCR에 푸시할 이미지
-images:
-  - 'gcr.io/$PROJECT_ID/flask-kakao-app:$SHORT_SHA'
 
 # 옵션 (지난번 오류 해결을 위해 추가한 부분)
 options:
