@@ -20,6 +20,9 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'GOOGLE_APPLICATION_CREDENTIALS=/app/sodium-diode-445205-v1-5f37a0f08bc1.json'
+  
 
 images:
   - 'gcr.io/sodium-diode-445205-v1/flask-kakao-app:$SHORT_SHA'
