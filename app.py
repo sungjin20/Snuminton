@@ -23,6 +23,11 @@ app = Flask(__name__)
 client = storage.Client()
 bucket = client.get_bucket('snuminton_bucket')
 
+# 로컬에서 테스트시 사용
+#with open('config_local.json', 'r', encoding='utf-8') as f:
+#    config = json.load(f)
+
+# 서버에서는 항상 이걸 써야함
 with open('config.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
 

@@ -1,0 +1,5 @@
+{
+    "env": "local",
+    "REDIRECT_URI": "http://localhost:5000/oauth",
+    "REDIRECT_URI_schedule": "http://localhost:5000/oauth_schedule"
+}
