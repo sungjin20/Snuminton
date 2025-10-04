@@ -23,12 +23,12 @@ bucket = None
 deploy_credentials = None
 
 # 로컬에서 테스트시 사용
-with open('config_local.json', 'r', encoding='utf-8') as f:
-    config = json.load(f)
+#with open('config_local.json', 'r', encoding='utf-8') as f:
+#    config = json.load(f)
 
 # 서버에서는 항상 이걸 써야함
-#with open('config_server.json', 'r', encoding='utf-8') as f:
-#    config = json.load(f)
+with open('config_server.json', 'r', encoding='utf-8') as f:
+    config = json.load(f)
 
 env = config.get("env")
 REDIRECT_URI = config.get("REDIRECT_URI")
