@@ -2,41 +2,35 @@ import requests
 
 whole_make_list = [
     {
-        "SPREADSHEET_NAME" : "10월 1주차 운동 신청 확인",
-        "make_list" : [["9", "30", "화", "71", "2025"],
-                       ["10", "2", "목", "71", "2025"],
-                       ["10", "4", "토", "71-1", "2025"]]
+        "SPREADSHEET_NAME" : "11월 1주차 운동 신청 확인",
+        "make_list" : [["11", "4", "화", "71", "2025"],
+                       ["11", "6", "목", "71", "2025"],
+                       ["11", "8", "토", "71-1", "2025"]]
     },
     {
-        "SPREADSHEET_NAME" : "10월 2주차 운동 신청 확인",
-        "make_list" : [["10", "7", "화", "71", "2025"],
-                       ["10", "9", "목", "71", "2025"],
-                       ["10", "11", "토", "71-1", "2025"]]
+        "SPREADSHEET_NAME" : "11월 2주차 운동 신청 확인",
+        "make_list" : [["11", "11", "화", "71", "2025"],
+                       ["11", "13", "목", "71", "2025"],
+                       ["11", "15", "토", "71-1", "2025"]]
     },
     {
-        "SPREADSHEET_NAME" : "10월 3주차 운동 신청 확인",
-        "make_list" : [["10", "14", "화", "71", "2025"],
-                       ["10", "16", "목", "71", "2025"],
-                       ["10", "18", "토", "71-1", "2025"]]
+        "SPREADSHEET_NAME" : "11월 3주차 운동 신청 확인",
+        "make_list" : [["11", "18", "화", "71", "2025"],
+                       ["11", "20", "목", "71", "2025"],
+                       ["11", "22", "토", "71-1", "2025"]]
     },
     {
-        "SPREADSHEET_NAME" : "10월 4주차 운동 신청 확인",
-        "make_list" : [["10", "21", "화", "71", "2025"],
-                       ["10", "23", "목", "71", "2025"],
-                       ["10", "25", "토", "71-1", "2025"]]
-    },
-    {
-        "SPREADSHEET_NAME" : "10월 5주차 운동 신청 확인",
-        "make_list" : [["10", "28", "화", "71", "2025"],
-                       ["10", "30", "목", "71", "2025"],
-                       ["11", "1", "토", "71-1", "2025"]]
+        "SPREADSHEET_NAME" : "11월 4주차 운동 신청 확인",
+        "make_list" : [["11", "25", "화", "71", "2025"],
+                       ["11", "27", "목", "71", "2025"],
+                       ["11", "29", "토", "71-1", "2025"]]
     }
 ]
 
 # createsheet
-CREATESHEET_URL = "https://script.google.com/macros/s/AKfycbzRSqr1Ho9B9kRgl8hH_A8a4hQc46Ah06hnqBIb98jhRNGO0YdooUQWi4FneEgUbjsWPg/exec"
+CREATESHEET_URL = "https://script.google.com/macros/s/AKfycbwX3V8WtmU47fOcmaFxUMTRT9RljI6LlPQlYC0e91A6K-8BhijExIJpqOIU7pIVKOZCww/exec"
 # createform
-CREATEFORM_URL = "https://script.google.com/macros/s/AKfycbxuH6ZNYA-5TaHeZ_cn6XZRs0aC3nDM2-Inh0YqI86YM16FT-BfxZf5D6ksljVHuqz9_Q/exec"
+CREATEFORM_URL = "https://script.google.com/macros/s/AKfycbx3lp9lD89jCnQqPoCw8nWHi-QdboI07bxWBL4ka-tTI0IMrr7vi_FF7TyYpClwiLSmoA/exec"
 # editsheet
 EDITSHEET_URL = "https://script.google.com/macros/s/AKfycbzf2ZkfXydZ5fR9cTQcVyhvbcDKTf-SVclbeOJ2kOltZ93SyPoUcTjBRm25n01KDJc2/exec"
 
