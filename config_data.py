@@ -1,93 +1,78 @@
-UPDATE_DATE = "2025년 10월 04일"
+UPDATE_DATE = "2025년 10월 31일"
 
 executives = ["김영준", "이주원", "김상원", "조재형", "김민성", "윤주영", "이지호", "강예원"]
 
 sheet_ids = {
-        '9_4th': "1-WqVjMTRU27HQQ-yB1gGlef9tdmNPZHvle0hLbAXQAo",  # 9월 4주차 시트 ID
-        '10_1st': "1CX3Iyd-37lvVmQnkshK2Xfo9vPpTZ_l5eWLglFNoezk",  # 10월 1주차 시트 ID
-        '10_2nd': "1pmAxrXatwLeFi5wHB5aKw0fK8QCoLUeQMVlnALSm2fo",  # 10월 2주차 시트 ID
-        '10_3rd': "1mw92mZs9h59iWfbENdaGZ2WfS8x13f1LbM6jErir988",  # 10월 3주차 시트 ID
-        '10_4th': "1bo4VzMDS7CTaSwn9rrjEDT_kesWvPC8XKQJK6HQNH7Y",  # 10월 4주차 시트 ID
         '10_5th': "1RaPli5_B60ZdWi9K4cBE93fO9yhAzs0ecFZnmM8KicM",  # 10월 5주차 시트 ID
+        '11_1st': "1pZvUVqGiyDm96N-Kzun5s4_8f8xDQkeI0L1mL-mOjNs",  # 11월 1주차 시트 ID
+        '11_2nd': "1SOUCE8B1BPkcJEiWqHGZkuDm9lb1vT1MydOMJcmZ-sA",  # 11월 2주차 시트 ID
+        '11_3rd': "1WYc86bJJs4JBzfNUegL9T0pZVzqN9dW-r2eG7P5A4II",  # 11월 3주차 시트 ID
+        '11_4th': "1xpqHPz8VVYYywqajK0aKnZ5Y6C0z5CVNiITu5iN6xsU",  # 11월 4주차 시트 ID
     }
 
 links = {
-    '2025-09-23': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSdjc8SszJWFZYuUQ65MWsn1uE0mrFOBCQZkCzRKgNfjmbuI-g/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[0]}/edit?usp=drivesdk'
-    },
-    '2025-09-25': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSfatrL3ybu0t071xw2NVXAmsZQpXUdHRjtHJNZkicjBsT6p5w/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[0]}/edit?usp=drivesdk'
-    },
-    '2025-09-27': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLScCElro_2aN_8FRhm5D-iTx8zVoOq2Y8Nrw4nxIhYd8AKRMlw/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[0]}/edit?usp=drivesdk'
-    },
-
-    '2025-09-30': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSfE6CwgUL6xyYVdiYGfohAEcd90r1fC6Cu9Zsd8TnVmFVEPPA/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[1]}/edit?usp=drivesdk'
-    },
-    '2025-10-02': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLScFDX2dS2HlwooaBAanSfSNGiGqWKHBESH4KgKPytQ_hEZGDA/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[1]}/edit?usp=drivesdk'
-    },
-    '2025-10-04': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSdeRMc8qA6HLeCXxMGuVHKkgNTcFXgDFb8Xp9m1mQXexe561w/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[1]}/edit?usp=drivesdk'
-    },
-
-    '2025-10-07': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSffkcip-shbztOH1zECUeXTiEVhdNeFtqU0HYZa91zP4qOQPw/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[2]}/edit?usp=drivesdk'
-    },
-    '2025-10-09': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSduEPB43mBANh6b-wybZvl5FWaIf1F5YnDBYdbBKux0xmH-aw/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[2]}/edit?usp=drivesdk'
-    },
-    '2025-10-11': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSeDS6NzIfn8O5mZdNTuH-FJJfyzJ8uIgrATHJ0JowG3319TkQ/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[2]}/edit?usp=drivesdk'
-    },
-
-    '2025-10-14': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSczdo4fkuR2fAMWbDOGcWkOwTHZgBtFPCiuXeSKHvg4QGl3Lg/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[3]}/edit?usp=drivesdk'
-    },
-    '2025-10-16': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSeWjLc_yZnKv-2sidCp-MWQHQP4EXqgQgi1qeyuCMNRwO99Tw/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[3]}/edit?usp=drivesdk'
-    },
-    '2025-10-18': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSeYVSTwQkvyhdlqbiSvAoilOCCfzSndys1XcrDokgndE64I7g/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[3]}/edit?usp=drivesdk'
-    },
-
-    '2025-10-21': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSdiTcyR3jWyLkOBYvJ4x2G9oClhpFvjKW5pOKFTXmb3DNGy7g/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[4]}/edit?usp=drivesdk'
-    },
-    '2025-10-23': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSek9TvDc4uOSRnMx6eBOb6f1a2ss5j_oC_0h-gbKvw_GgtpZA/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[4]}/edit?usp=drivesdk'
-    },
-    '2025-10-25': {
-        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLScmk38hMPes07WZ3cuFnjgvEHqDNbv7v9p9wV33eeT3gQRdJg/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[4]}/edit?usp=drivesdk'
-    },
-
     '2025-10-28': {
         'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLScu5H-PgAu-7LDWpzSj8HYh13QDGtQMPSrvu9-O78CjVqF2sw/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[5]}/edit?usp=drivesdk'
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[0]}/edit?usp=drivesdk'
     },
     '2025-10-30': {
         'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLScCBFQpu3KPA_h4ZJkkg-SHozvnfxAZwcPhhfuPq58gBclKSg/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[5]}/edit?usp=drivesdk'
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[0]}/edit?usp=drivesdk'
     },
     '2025-11-01': {
         'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSfDlWh-UbKf2SW0KP4bLotBHdDHlfqaryQzXh88nO3K2M7EBg/viewform',
-        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[5]}/edit?usp=drivesdk'
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[0]}/edit?usp=drivesdk'
     },
-    # 다른 날짜들도 필요 시 추가
+
+    '2025-11-04': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSeNtu902gGhH-y5jZjofVj3PaOTnEF3Plij23RmheYtRYH7qA/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[1]}/edit?usp=drivesdk'
+    },
+    '2025-11-06': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSfdQeKug4MuG23DbXbtgz6hEjffgm6LB42ChVLANFa_M-YJeg/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[1]}/edit?usp=drivesdk'
+    },
+    '2025-11-08': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSeNBNc9PxUHUMf6nsi8FqYrEjxR4NGaD1UcZausRvdmHF8PhQ/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[1]}/edit?usp=drivesdk'
+    },
+
+    '2025-11-11': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSdbxagoZzNS7GOKKw65mopc_zfWDpDFWckzuUdo4djtA-oVSA/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[2]}/edit?usp=drivesdk'
+    },
+    '2025-11-13': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSdwSHvKdUlOi-XAhN9eR16XDphfzq_runtKth010GH6F2DdBw/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[2]}/edit?usp=drivesdk'
+    },
+    '2025-11-15': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSd0Y-1NedJ0IiFHpEZZQsHe97X9yUowtse8AC2srVgkz2KuPw/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[2]}/edit?usp=drivesdk'
+    },
+
+    '2025-11-18': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSf_a00HdZsO9yNXqJS2AZ3eQAfB9i5K0XKS66Ks_bAQ77bouQ/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[3]}/edit?usp=drivesdk'
+    },
+    '2025-11-20': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSdLRUeRHeCMm016IEzB3sLFvMEVXMT6X5FgRH1CNEgeX5h_JA/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[3]}/edit?usp=drivesdk'
+    },
+    '2025-11-22': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSdYXfQCZsyaGi105O01t-gplbkHh0o1RsJByuh0acAvwT8xNQ/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[3]}/edit?usp=drivesdk'
+    },
+
+    '2025-11-25': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSd4FNPL45tyM5gGdHO8KHPgSMqxWM5amyosT83LAnaVbKkx1Q/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[4]}/edit?usp=drivesdk'
+    },
+    '2025-11-27': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSc6tQbrfWO7pOMi7kXPNkcVxQFajtRFkTIzEykLqXwhAqaeuw/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[4]}/edit?usp=drivesdk'
+    },
+    '2025-11-29': {
+        'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSf51s-FJvgVtjJTeGlo6EzHev_khtkTHkXm4r0ap8GfxUOtDw/viewform',
+        'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[4]}/edit?usp=drivesdk'
+    },
 }
