@@ -8,7 +8,7 @@ sheet_ids = {
         '11_2nd': "1SOUCE8B1BPkcJEiWqHGZkuDm9lb1vT1MydOMJcmZ-sA",  # 11월 2주차 시트 ID
         '11_3rd': "1WYc86bJJs4JBzfNUegL9T0pZVzqN9dW-r2eG7P5A4II",  # 11월 3주차 시트 ID
         '11_4th': "1xpqHPz8VVYYywqajK0aKnZ5Y6C0z5CVNiITu5iN6xsU",  # 11월 4주차 시트 ID
-    } 
+    }  
 
 links = {
     '2025-10-28': {
