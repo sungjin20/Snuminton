@@ -10,7 +10,6 @@ sheet_ids = {
         '11_4th': "1xpqHPz8VVYYywqajK0aKnZ5Y6C0z5CVNiITu5iN6xsU",  # 11월 4주차 시트 ID
     }
 
-
 links = {
     '2025-10-28': {
         'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLScu5H-PgAu-7LDWpzSj8HYh13QDGtQMPSrvu9-O78CjVqF2sw/viewform',
