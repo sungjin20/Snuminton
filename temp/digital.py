@@ -212,44 +212,44 @@ def decode_digital(up, down):
     up_keys_list = [key for key, value in digital_UP.items() if value == up]
     down_keys_list = [key for key, value in digital_DN.items() if value == down]
     intersection = set(up_keys_list) & set(down_keys_list)
-    return intersection[0]
+    return list(intersection)[0]
 
 def decode_digitalL(up, down):
     up_keys_list = [key for key, value in digitalL_UP.items() if value == up]
     down_keys_list = [key for key, value in digitalL_DN.items() if value == down]
     intersection = set(up_keys_list) & set(down_keys_list)
-    return intersection[0]
+    return list(intersection)[0]
 
 def decode_digitalR(up, down):
     up_keys_list = [key for key, value in digitalR_UP.items() if value == up]
     down_keys_list = [key for key, value in digitalR_DN.items() if value == down]
     intersection = set(up_keys_list) & set(down_keys_list)
-    return intersection[0]
+    return list(intersection)[0]
 
 def decode_digitalX(up, down):
     up_keys_list = [key for key, value in digitalX_UP.items() if value == up]
     down_keys_list = [key for key, value in digitalX_DN.items() if value == down]
     intersection = set(up_keys_list) & set(down_keys_list)
-    return intersection[0]
+    return list(intersection)[0]
 
 def decode_digitalY(up, down):
     up_keys_list = [key for key, value in digitalY_UP.items() if value == up]
     down_keys_list = [key for key, value in digitalY_DN.items() if value == down]
     intersection = set(up_keys_list) & set(down_keys_list)
-    return intersection[0]
+    return list(intersection)[0]
 
 def decode_digitalT(up, down):
     up_keys_list = [key for key, value in digitalT_UP.items() if value == up]
     down_keys_list = [key for key, value in digitalT_DN.items() if value == down]
     intersection = set(up_keys_list) & set(down_keys_list)
-    return intersection[0]
+    return list(intersection)[0]
 
 def decode_digitalM(up, mid, down):
     up_keys_list = [key for key, value in digitalM_UP.items() if value == up]
     mid_keys_list = [key for key, value in digitalM_MD.items() if value == mid]
     down_keys_list = [key for key, value in digitalM_DN.items() if value == down]
     intersection = set(up_keys_list) & set(mid_keys_list) & set(down_keys_list)
-    return intersection[0]
+    return list(intersection)[0]
 
 def decode_cut(gubun, up, down, mid=None):
     if gubun == "digitalM":
