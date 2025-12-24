@@ -13,23 +13,11 @@ from decimal import Decimal, ROUND_HALF_UP
 import xlwings as xw
 from digital import *
 
-############# 회사 설정용 ###############
-import requests
-from requests import Response
-from webdriver_manager.core.download_manager import WDMDownloadManager
-
-class CustomHttpClient():
-    def get(self, url, params=None, **kwargs) -> Response:
-        return requests.get(url, params, proxies={'http': 'http://70.10.15.10:8080', 'https':'http://70.10.15.10:8080'}, verify=False, timeout=10)
-    
-service = Service(executable_path=ChromeDriverManager(download_manager=WDMDownloadManager(CustomHttpClient())).install())
-#########################################
-
 app = xw.App(visible=False)
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)  # 실행 완료 후 브라우저 꺼짐 방지
 chrome_options.add_argument("--disable-blink-features=AutomationControlled") # 자동화 도구 인식 방지
-#service = Service(ChromeDriverManager().install())
+service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 wait = WebDriverWait(driver, 10)
 url = "https://member.jinhak.com/MemberV3/MemberJoin/MemberLogIn.aspx"
