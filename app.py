@@ -146,6 +146,9 @@ def index():
                     font-size: 2.5rem;
                     margin-bottom: 1rem;
                     color: var(--primary-blue);
+                    /* 아래 두 줄을 추가/수정하세요 */
+                    white-space: nowrap;      /* 줄바꿈 방지 */
+                    letter-spacing: -1px;    /* 글자 간격을 살짝 좁힘 (선택사항) */
                 }
 
                 .hero p {
@@ -266,7 +269,9 @@ def index():
                     }
 
                     .hero h1 {
-                        font-size: 2rem;
+                        /* vw 단위를 사용하여 화면 너비에 맞춰 글자 크기가 자동으로 줄어들게 합니다 */
+                        font-size: min(6.5vw, 2rem);
+                        white-space: nowrap;
                     }
 
                     .menu-grid {
@@ -302,7 +307,7 @@ def index():
                         <div class="card-content">
                             <h3>출석 체크</h3>
                             <p>동아리 활동 출석을 간편하게 관리하고 기록하세요</p>
-                            <a href="{{ url_for('attendance_selection') }}" class="btn">사용하기</a>
+                            <a href="{{ url_for('attendance_selection') }}" class="btn">바로가기</a>
                         </div>
                     </div>
 
@@ -314,7 +319,7 @@ def index():
                         <div class="card-content">
                             <h3>지각/불참/게스트비 체크</h3>
                             <p>지각, 불참, 게스트비 관리를 효율적으로 처리하세요</p>
-                            <a href="{{ url_for('etc_selection') }}" class="btn">사용하기</a>
+                            <a href="{{ url_for('etc_selection') }}" class="btn">바로가기</a>
                         </div>
                     </div>
 
@@ -326,7 +331,7 @@ def index():
                         <div class="card-content">
                             <h3>운동신청공지 복사</h3>
                             <p>운동 신청 공지를 쉽게 생성하고 공유하세요</p>
-                            <a href="{{ url_for('notice_selection') }}" class="btn">사용하기</a>
+                            <a href="{{ url_for('notice_selection') }}" class="btn">바로가기</a>
                         </div>
                     </div>
 
@@ -338,7 +343,7 @@ def index():
                         <div class="card-content">
                             <h3>게스트 운동신청공지 복사</h3>
                             <p>게스트를 위한 운동 신청 공지를 생성하세요</p>
-                            <a href="{{ url_for('notice_selection_guest') }}" class="btn">사용하기</a>
+                            <a href="{{ url_for('notice_selection_guest') }}" class="btn">바로가기</a>
                         </div>
                     </div>
 
@@ -350,7 +355,7 @@ def index():
                         <div class="card-content">
                             <h3>메시지 전송</h3>
                             <p>동아리 멤버들에게 공지를 빠르게 전송하세요</p>
-                            <a href="{{ auth_url_main }}" class="btn">사용하기</a>
+                            <a href="{{ auth_url_main }}" class="btn">바로가기</a>
                         </div>
                     </div>
 
@@ -362,7 +367,7 @@ def index():
                         <div class="card-content">
                             <h3>시간표 공지</h3>
                             <p>동아리 시간표를 공유하고 관리하세요</p>
-                            <a href="{{ auth_url_schedule }}" class="btn">사용하기</a>
+                            <a href="{{ auth_url_schedule }}" class="btn">바로가기</a>
                         </div>
                     </div>
                 </section>
@@ -541,6 +546,9 @@ def menu():
                     font-size: 2.5rem;
                     margin-bottom: 1rem;
                     color: var(--primary-blue);
+                    /* 아래 두 줄을 추가/수정하세요 */
+                    white-space: nowrap;      /* 줄바꿈 방지 */
+                    letter-spacing: -1px;    /* 글자 간격을 살짝 좁힘 (선택사항) */
                 }
 
                 .hero p {
@@ -661,7 +669,9 @@ def menu():
                     }
 
                     .hero h1 {
-                        font-size: 2rem;
+                        /* vw 단위를 사용하여 화면 너비에 맞춰 글자 크기가 자동으로 줄어들게 합니다 */
+                        font-size: min(6.5vw, 2rem);
+                        white-space: nowrap;
                     }
 
                     .menu-grid {
@@ -697,7 +707,7 @@ def menu():
                         <div class="card-content">
                             <h3>홈으로</h3>
                             <p>메인 화면으로 이동합니다</p>
-                            <a href="{{ url_for('index') }}" class="btn">사용하기</a>
+                            <a href="{{ url_for('index') }}" class="btn">바로가기</a>
                         </div>
                     </div>
 
@@ -709,7 +719,7 @@ def menu():
                         <div class="card-content">
                             <h3>메시지 전송</h3>
                             <p>동아리 멤버들에게 공지를 전송합니다</p>
-                            <a href="{{ url_for('send_message') }}" class="btn">사용하기</a>
+                            <a href="{{ url_for('send_message') }}" class="btn">바로가기</a>
                         </div>
                     </div>
 
@@ -721,7 +731,7 @@ def menu():
                         <div class="card-content">
                             <h3>짧은 공지 전송</h3>
                             <p>간단한 공지를 전송합니다</p>
-                            <a href="{{ url_for('send_short_message') }}" class="btn">사용하기</a>
+                            <a href="{{ url_for('send_short_message') }}" class="btn">바로가기</a>
                         </div>
                     </div>
                 </section>
@@ -769,57 +779,271 @@ def send_message():
             }
             response = requests.post(url, headers=headers, data=data)
             if response.status_code == 200:
-                return render_template_string(""" 
+                return render_template_string("""
                     <html>
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>스누민턴 운영부 - 메시지 전송</title>
+                        <title>스누민턴 운영부 - 전송 완료</title>
                         <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+
+                        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
                         <style>
-                            body {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                height: 100vh;
+                            /* 기존 디자인 시스템 변수 */
+                            :root {
+                                --primary-blue: #0066cc;
+                                --primary-yellow: #ffeb3b;
+                                --secondary-blue: #e6f0ff;
+                                --dark-gray: #333333;
+                                --light-gray: #f5f5f5;
+                                --white: #ffffff;
+                                --success-green: #28a745; /* 성공 메시지용 색상 추가 */
+                                --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                                --transition: all 0.3s ease;
+                            }
+
+                            * {
                                 margin: 0;
+                                padding: 0;
+                                box-sizing: border-box;
+                            }
+
+                            body {
+                                font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                                background-color: var(--light-gray);
+                                color: var(--dark-gray);
+                                line-height: 1.6;
+                                min-height: 100vh;
+                                display: flex;
                                 flex-direction: column;
-                                font-family: Arial, sans-serif;
                             }
+
+                            /* Header Styles */
+                            header {
+                                background-color: var(--white);
+                                box-shadow: var(--shadow);
+                                padding: 1rem 2rem;
+                                position: sticky;
+                                top: 0;
+                                z-index: 100;
+                            }
+
+                            .header-container {
+                                max-width: 1200px;
+                                margin: 0 auto;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                            }
+
+                            .logo-title {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                text-decoration: none;
+                            }
+
+                            .logo {
+                                width: 50px;
+                                height: 50px;
+                            }
+
+                            .title {
+                                font-size: 1.5rem;
+                                font-weight: 700;
+                                color: var(--primary-blue);
+                            }
+
+                            /* Main Content Styles */
+                            main {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                padding: 2rem;
+                                max-width: 1200px;
+                                margin: 0 auto;
+                                width: 100%;
+                            }
+
+                            .hero {
+                                text-align: center;
+                                margin-bottom: 2rem;
+                            }
+
+                            .hero h1 {
+                                font-size: 2.5rem;
+                                margin-bottom: 0.5rem;
+                                color: var(--primary-blue);
+                            }
+
+                            /* Success Card Specific Styles */
+                            .content-card {
+                                background-color: var(--white);
+                                border-radius: 12px;
+                                box-shadow: var(--shadow);
+                                padding: 3rem 2rem;
+                                width: 100%;
+                                max-width: 600px; /* 메시지 카드이므로 폭을 약간 좁힘 */
+                                text-align: center;
+                                transition: var(--transition);
+                            }
+
+                            .success-icon {
+                                font-size: 4rem;
+                                color: var(--success-green);
+                                margin-bottom: 1.5rem;
+                                animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                            }
+
                             .success-msg {
-                                font-size: 24px;
-                                font-weight: bold;
-                                margin-bottom: 20px;
-                                color: green;
+                                font-size: 1.5rem;
+                                font-weight: 700;
+                                margin-bottom: 2rem;
+                                color: var(--dark-gray);
                             }
+
                             .button-container {
                                 display: flex;
-                                gap: 10px;
+                                gap: 1rem;
+                                justify-content: center;
+                                flex-wrap: wrap;
                             }
+
+                            /* 버튼 스타일 통일 및 변형 */
                             .btn {
-                                padding: 10px 20px;
-                                font-size: 16px;
-                                background-color: #ffeb3b;
-                                border: none;
-                                border-radius: 5px;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                padding: 0.8rem 1.5rem;
+                                border-radius: 8px;
+                                font-size: 1rem;
+                                font-weight: 700;
+                                text-decoration: none;
                                 cursor: pointer;
-                                transition: background-color 0.3s;
+                                transition: var(--transition);
+                                border: none;
+                                min-width: 140px;
                             }
-                            .btn:hover {
-                                background-color: #fbc02d;
+
+                            .btn-primary {
+                                background-color: var(--primary-blue);
+                                color: var(--white);
+                            }
+
+                            .btn-primary:hover {
+                                background-color: #0052a3;
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+                            }
+
+                            .btn-secondary {
+                                background-color: var(--primary-yellow);
+                                color: var(--dark-gray);
+                            }
+
+                            .btn-secondary:hover {
+                                background-color: #fdd835;
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 12px rgba(255, 235, 59, 0.3);
+                            }
+
+                            /* Animation */
+                            @keyframes popIn {
+                                0% { transform: scale(0); opacity: 0; }
+                                100% { transform: scale(1); opacity: 1; }
+                            }
+
+                            /* Footer Styles */
+                            footer {
+                                background-color: var(--dark-gray);
+                                color: var(--white);
+                                padding: 2rem;
+                                text-align: center;
+                                margin-top: auto;
+                            }
+
+                            .footer-content {
+                                max-width: 1200px;
+                                margin: 0 auto;
+                            }
+
+                            .social-links {
+                                display: flex;
+                                justify-content: center;
+                                gap: 1.5rem;
+                                margin: 1rem 0;
+                            }
+
+                            .social-links a {
+                                color: var(--white);
+                                font-size: 1.5rem;
+                                transition: var(--transition);
+                            }
+
+                            .social-links a:hover {
+                                color: var(--primary-yellow);
+                            }
+
+                            .copyright {
+                                margin-top: 1rem;
+                                font-size: 0.9rem;
+                                color: #bbb;
+                            }
+
+                            @media (max-width: 768px) {
+                                .hero h1 { font-size: 2rem; }
+                                .content-card { padding: 2rem 1rem; }
+                                .btn { width: 100%; } /* 모바일에서는 버튼 꽉 차게 */
                             }
                         </style>
                     </head>
                     <body>
-                        <div class="success-msg">메시지가 성공적으로 전송되었습니다!</div>
-                        <div class="button-container">
-                            <a href="{{ url_for('send_message') }}">
-                                <button class="btn">다시 보내기</button>
-                            </a>
-                            <a href="{{ url_for('index') }}">
-                                <button class="btn">홈으로 돌아가기</button>
-                            </a>
-                        </div>
+                        <header>
+                            <div class="header-container">
+                                <a href="/" class="logo-title">
+                                    <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
+                                    <div class="title">스누민턴 운영부</div>
+                                </a>
+                            </div>
+                        </header>
+
+                        <main>
+                            <section class="hero">
+                                <h1>전송 완료</h1>
+                            </section>
+
+                            <div class="content-card">
+                                <div class="success-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+
+                                <div class="success-msg">메시지가 성공적으로 전송되었습니다!</div>
+
+                                <div class="button-container">
+                                    <a href="{{ url_for('send_message') }}" class="btn btn-primary">
+                                        <i class="fas fa-redo" style="margin-right: 8px;"></i> 다시 보내기
+                                    </a>
+                                    <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                                        <i class="fas fa-home" style="margin-right: 8px;"></i> 홈으로 가기
+                                    </a>
+                                </div>
+                            </div>
+                        </main>
+
+                        <footer>
+                            <div class="footer-content">
+                                <div class="social-links">
+                                    <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <div class="copyright">
+                                    &copy; 2025 김성진. All rights reserved.<br>
+                                    업데이트: """ + UPDATE_DATE + """
+                                </div>
+                            </div>
+                        </footer>
                     </body>
                     </html>
                 """)
@@ -835,72 +1059,264 @@ def send_message():
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 메시지 전송</title>
             <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
                     margin: 0;
-                    flex-direction: column;
-                    font-family: Arial, sans-serif;
+                    padding: 0;
+                    box-sizing: border-box;
                 }
-                .logo-container {
-                    position: relative;
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    text-decoration: none;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                }
-                .logo {
-                    width: 100px;
-                    height: 100px;
-                    margin-bottom: 0px;
-                }
-                .title {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 10px;
-                }
-                .input-container {
-                    margin-bottom: 20px;
-                }
-                .send-btn {
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    background-color: #ffeb3b;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
-                    display: block;
+                    padding: 2rem;
+                    max-width: 1200px;
                     margin: 0 auto;
+                    width: 100%;
                 }
-                .send-btn:hover {
-                    background-color: #fbc02d;
+
+                .hero {
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    max-width: 800px;
                 }
+
+                .hero h1 {
+                    font-size: 2.5rem;
+                    margin-bottom: 0.5rem;
+                    color: var(--primary-blue);
+                    white-space: nowrap;
+                }
+
+                .hero p {
+                    font-size: 1.1rem;
+                    color: #555;
+                    /* 추가된 부분: 강제 줄바꿈 방지 */
+                    white-space: nowrap;
+                }
+
+                /* Form Card Styles */
+                .content-card {
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    box-shadow: var(--shadow);
+                    padding: 2.5rem;
+                    width: 100%;
+                    max-width: 800px;
+                    transition: var(--transition);
+                }
+
+                .input-group {
+                    margin-bottom: 1.5rem;
+                }
+
+                .input-group label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    font-weight: 500;
+                    color: var(--dark-gray);
+                }
+
                 textarea {
                     width: 100%;
-                    padding: 10px;
-                    margin: 5px 0;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    font-size: 16px;
-                    resize: none;
+                    padding: 1rem;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    font-family: inherit;
+                    resize: vertical;
+                    transition: var(--transition);
+                    min-height: 300px;
+                }
+
+                textarea:focus {
+                    outline: none;
+                    border-color: var(--primary-blue);
+                    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+                }
+
+                .btn-submit {
+                    display: block;
+                    width: 100%;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 1rem;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .btn-submit:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+                }
+
+                /* Footer Styles */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    margin-top: auto;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive */
+                @media (max-width: 768px) {
+                    .hero h1 {
+                        font-size: min(6.5vw, 2rem);
+                    }
+
+                    /* 모바일에서 p 태그 폰트 사이즈 조정 */
+                    .hero p {
+                        font-size: 0.95rem; /* 글자 크기를 약간 줄여 한 줄에 들어가도록 조정 */
+                    }
+
+                    .content-card {
+                        padding: 1.5rem;
+                    }
+
+                    main {
+                        padding: 1rem;
+                    }
                 }
             </style>
         </head>
         <body>
-            <div class="logo-container">
-                <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
-            </div>
-            <div class="title">< 메시지 전송 ></div>
-            <form method="POST">
-                <div class="input-container">
-                    <textarea id="message" name="message" rows="15" placeholder="내용을 입력하세요"></textarea>
+            <header>
+                <div class="header-container">
+                    <a href="/" class="logo-title">
+                        <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </a>
                 </div>
-                <button type="submit" class="send-btn">나에게 보내기</button>
-            </form>
+            </header>
+
+            <main>
+                <section class="hero">
+                    <h1>메시지 전송</h1>
+                    <p>나에게 보낼 메시지 내용을 입력하세요.</p>
+                </section>
+
+                <div class="content-card">
+                    <form method="POST">
+                        <div class="input-group">
+                            <textarea id="message" name="message" placeholder="내용을 입력하세요..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> 나에게 보내기
+                        </button>
+                    </form>
+                </div>
+            </main>
+
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """)
@@ -928,57 +1344,261 @@ def send_short_message():
             }
             response = requests.post(url, headers=headers, data=data)
             if response.status_code == 200:
-                return render_template_string(""" 
-                    <html>
+                return render_template_string("""
+                    <html lang="ko">
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>스누민턴 운영부 - 짧은 공지 전송</title>
+                        <title>스누민턴 운영부 - 전송 완료</title>
                         <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+
+                        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
                         <style>
-                            body {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                height: 100vh;
+                            :root {
+                                --primary-blue: #0066cc;
+                                --primary-yellow: #ffeb3b;
+                                --secondary-blue: #e6f0ff;
+                                --dark-gray: #333333;
+                                --light-gray: #f5f5f5;
+                                --white: #ffffff;
+                                --success-green: #28a745;
+                                --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                                --transition: all 0.3s ease;
+                            }
+
+                            * {
                                 margin: 0;
+                                padding: 0;
+                                box-sizing: border-box;
+                            }
+
+                            body {
+                                font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                                background-color: var(--light-gray);
+                                color: var(--dark-gray);
+                                line-height: 1.6;
+                                min-height: 100vh;
+                                display: flex;
                                 flex-direction: column;
-                                font-family: Arial, sans-serif;
                             }
+
+                            /* Header Styles */
+                            header {
+                                background-color: var(--white);
+                                box-shadow: var(--shadow);
+                                padding: 1rem 2rem;
+                                position: sticky;
+                                top: 0;
+                                z-index: 100;
+                            }
+
+                            .header-container {
+                                max-width: 1200px;
+                                margin: 0 auto;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                            }
+
+                            .logo-title {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                text-decoration: none;
+                            }
+
+                            .logo {
+                                width: 50px;
+                                height: 50px;
+                            }
+
+                            .title {
+                                font-size: 1.5rem;
+                                font-weight: 700;
+                                color: var(--primary-blue);
+                            }
+
+                            /* Main Content Styles */
+                            main {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center; /* 수직 중앙 정렬 추가 */
+                                padding: 2rem;
+                                max-width: 1200px;
+                                margin: 0 auto;
+                                width: 100%;
+                            }
+
+                            .content-card {
+                                background-color: var(--white);
+                                border-radius: 12px;
+                                box-shadow: var(--shadow);
+                                padding: 3rem 2rem;
+                                width: 100%;
+                                max-width: 600px; /* 메시지 카드는 약간 좁게 */
+                                text-align: center;
+                                transition: var(--transition);
+                            }
+
+                            .success-icon {
+                                font-size: 4rem;
+                                color: var(--success-green);
+                                margin-bottom: 1.5rem;
+                                animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                            }
+
                             .success-msg {
-                                font-size: 24px;
-                                font-weight: bold;
-                                margin-bottom: 20px;
-                                color: green;
+                                font-size: 1.5rem;
+                                font-weight: 700;
+                                color: var(--dark-gray);
+                                margin-bottom: 2.5rem;
                             }
+
+                            /* Button Styles */
                             .button-container {
                                 display: flex;
-                                gap: 10px;
+                                gap: 1rem;
+                                justify-content: center;
                             }
+
                             .btn {
-                                padding: 10px 20px;
-                                font-size: 16px;
-                                background-color: #ffeb3b;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                padding: 0.8rem 1.5rem;
                                 border: none;
-                                border-radius: 5px;
+                                border-radius: 8px;
+                                font-size: 1rem;
+                                font-weight: 700;
                                 cursor: pointer;
-                                transition: background-color 0.3s;
+                                text-decoration: none;
+                                transition: var(--transition);
+                                flex: 1;
                             }
-                            .btn:hover {
+
+                            .btn i {
+                                margin-right: 0.5rem;
+                            }
+
+                            .btn-primary {
+                                background-color: var(--primary-blue);
+                                color: var(--white);
+                            }
+
+                            .btn-primary:hover {
+                                background-color: #0052a3;
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+                            }
+
+                            .btn-secondary {
+                                background-color: var(--primary-yellow);
+                                color: var(--dark-gray);
+                            }
+
+                            .btn-secondary:hover {
                                 background-color: #fbc02d;
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 12px rgba(255, 235, 59, 0.3);
+                            }
+
+                            @keyframes popIn {
+                                0% { transform: scale(0); opacity: 0; }
+                                100% { transform: scale(1); opacity: 1; }
+                            }
+
+                            /* Footer Styles */
+                            footer {
+                                background-color: var(--dark-gray);
+                                color: var(--white);
+                                padding: 2rem;
+                                text-align: center;
+                                margin-top: auto;
+                            }
+
+                            .footer-content {
+                                max-width: 1200px;
+                                margin: 0 auto;
+                            }
+
+                            .social-links {
+                                display: flex;
+                                justify-content: center;
+                                gap: 1.5rem;
+                                margin: 1rem 0;
+                            }
+
+                            .social-links a {
+                                color: var(--white);
+                                font-size: 1.5rem;
+                                transition: var(--transition);
+                            }
+
+                            .social-links a:hover {
+                                color: var(--primary-yellow);
+                            }
+
+                            .copyright {
+                                margin-top: 1rem;
+                                font-size: 0.9rem;
+                                color: #bbb;
+                            }
+
+                            /* Responsive */
+                            @media (max-width: 480px) {
+                                .button-container {
+                                    flex-direction: column;
+                                }
+
+                                .content-card {
+                                    padding: 2rem 1.5rem;
+                                }
                             }
                         </style>
                     </head>
                     <body>
-                        <div class="success-msg">짧은 공지가 성공적으로 전송되었습니다!</div>
-                        <div class="button-container">
-                            <a href="{{ url_for('send_short_message') }}">
-                                <button class="btn">다시 보내기</button>
-                            </a>
-                            <a href="{{ url_for('index') }}">
-                                <button class="btn">홈으로 돌아가기</button>
-                            </a>
-                        </div>
+                        <header>
+                            <div class="header-container">
+                                <a href="/" class="logo-title">
+                                    <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
+                                    <div class="title">스누민턴 운영부</div>
+                                </a>
+                            </div>
+                        </header>
+
+                        <main>
+                            <div class="content-card">
+                                <div class="success-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <h2 class="success-msg">짧은 공지가<br>성공적으로 전송되었습니다!</h2>
+
+                                <div class="button-container">
+                                    <a href="{{ url_for('send_short_message') }}" class="btn btn-secondary">
+                                        <i class="fas fa-redo"></i> 다시 보내기
+                                    </a>
+                                    <a href="{{ url_for('index') }}" class="btn btn-primary">
+                                        <i class="fas fa-home"></i> 홈으로
+                                    </a>
+                                </div>
+                            </div>
+                        </main>
+
+                        <footer>
+                            <div class="footer-content">
+                                <div class="social-links">
+                                    <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <div class="copyright">
+                                    &copy; 2025 김성진. All rights reserved.<br>
+                                    업데이트: """ + UPDATE_DATE + """
+                                </div>
+                            </div>
+                        </footer>
                     </body>
                     </html>
                 """)
@@ -994,77 +1614,272 @@ def send_short_message():
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 짧은 공지 전송</title>
             <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
                     margin: 0;
-                    flex-direction: column;
-                    font-family: Arial, sans-serif;
+                    padding: 0;
+                    box-sizing: border-box;
                 }
-                .logo-container {
-                    position: relative;
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    text-decoration: none;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
                 }
-                .logo {
-                    width: 100px;
-                    height: 100px;
-                    margin-bottom: 0px;
+
+                .hero {
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    max-width: 800px;
                 }
-                .title {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 10px;
+
+                .hero h1 {
+                    font-size: 2.5rem;
+                    margin-bottom: 0.5rem;
+                    color: var(--primary-blue);
+                    white-space: nowrap;
                 }
-                .input-container {
-                    margin-bottom: 20px;
+
+                .hero p {
+                    font-size: 1.1rem;
+                    color: #555;
+                    white-space: nowrap;
                 }
-                .send-btn {
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    background-color: #ffeb3b;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
+
+                /* Form Card Styles */
+                .content-card {
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    box-shadow: var(--shadow);
+                    padding: 2.5rem;
+                    width: 100%;
+                    max-width: 800px;
+                    transition: var(--transition);
+                }
+
+                .input-group {
+                    margin-bottom: 1.5rem;
+                }
+
+                .input-group label {
                     display: block;
+                    margin-bottom: 0.5rem;
+                    font-weight: 500;
+                    color: var(--dark-gray);
+                }
+
+                /* 입력 필드 스타일 통일 (input text + textarea) */
+                input[type="text"],
+                textarea {
+                    width: 100%;
+                    padding: 1rem;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    font-family: inherit;
+                    transition: var(--transition);
+                }
+
+                input[type="text"]:focus,
+                textarea:focus {
+                    outline: none;
+                    border-color: var(--primary-blue);
+                    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+                }
+
+                textarea {
+                    resize: vertical;
+                    min-height: 200px; /* 공지사항은 메시지보다 조금 짧을 수 있어 높이 조정 */
+                }
+
+                .btn-submit {
+                    display: block;
+                    width: 100%;
+                    background-color: var(--primary-yellow); /* 노란색 강조 (짧은 공지) */
+                    color: var(--dark-gray);
+                    padding: 1rem;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: var(--transition);
+                }
+
+                .btn-submit:hover {
+                    background-color: #fbc02d;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(251, 192, 45, 0.2);
+                }
+
+                /* Footer Styles */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    margin-top: auto;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
                     margin: 0 auto;
                 }
-                .send-btn:hover {
-                    background-color: #fbc02d;
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
                 }
-                input, textarea {
-                    width: 100%;
-                    padding: 10px;
-                    margin: 5px 0;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    font-size: 16px;
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
                 }
-                textarea {
-                    resize: none;
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive */
+                @media (max-width: 768px) {
+                    .hero h1 {
+                        font-size: min(6.5vw, 2rem);
+                    }
+
+                    .hero p {
+                        font-size: 0.95rem;
+                    }
+
+                    .content-card {
+                        padding: 1.5rem;
+                    }
+
+                    main {
+                        padding: 1rem;
+                    }
                 }
             </style>
         </head>
         <body>
-            <div class="logo-container">
-                <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
-            </div>
-            <div class="title">< 짧은 공지 전송 ></div>
-            <form method="POST">
-                <div class="input-container">
-                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요">
+            <header>
+                <div class="header-container">
+                    <a href="/" class="logo-title">
+                        <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </a>
                 </div>
-                <div class="input-container">
-                    <textarea id="message" name="message" rows="10" placeholder="내용을 입력하세요"></textarea>
+            </header>
+
+            <main>
+                <section class="hero">
+                    <h1>짧은 공지 전송</h1>
+                    <p>공지사항 제목과 내용을 입력하세요.</p>
+                </section>
+
+                <div class="content-card">
+                    <form method="POST">
+                        <div class="input-group">
+                            <label for="title">제목</label>
+                            <input type="text" id="title" name="title" placeholder="제목을 입력하세요">
+                        </div>
+                        <div class="input-group">
+                            <label for="message">내용</label>
+                            <textarea id="message" name="message" placeholder="내용을 입력하세요..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-bullhorn"></i> 나에게 보내기
+                        </button>
+                    </form>
                 </div>
-                <button type="submit" class="send-btn">나에게 보내기</button>
-            </form>
+            </main>
+
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """)
@@ -1106,14 +1921,14 @@ def attendance_check(week):
     def get_google_sheet(sheet_id, day_of_week):
         # 영어 요일을 한국어 요일로 변환
         korean_day_of_week = day_of_week_mapping.get(day_of_week, None)
-        
+
         if not korean_day_of_week:
             raise ValueError(f"지원되지 않는 요일: {day_of_week}")
 
         # 구글 스프레드시트 API 연결 설정
         credentials_info = get_secret('gspread-credentials', credentials=deploy_credentials)
         client = gspread.service_account_from_dict(credentials_info)
-        
+
         # 한국어 요일에 해당하는 워크시트를 로드
         sheet = client.open_by_key(sheet_id).worksheet(korean_day_of_week)
         return sheet
@@ -1219,87 +2034,355 @@ def attendance_check(week):
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 출석 체크</title>
             <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
+                /* === 통합 스타일 변수 === */
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
                     margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
                     flex-direction: column;
-                    font-family: Arial, sans-serif;
-                    padding: 20px;
                 }
-                h2 {
-                    margin-bottom: 20px;
-                }
-                .attendance-table-container {
-                    width: 100%;
-                    max-width: 1000px;
-                    height: 500px;  /* 고정 높이 설정 */
-                    overflow-y: auto;  /* 세로 스크롤 추가 */
-                    margin-top: 20px;
-                    display: block;
-                }
-                .attendance-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    font-size: 14px;
-                }
-                .attendance-table th, .attendance-table td {
-                    padding: 10px;
-                    text-align: center;
-                    border: 1px solid #ddd;
-                    word-wrap: break-word;
-                }
-                .attendance-table th {
+
+                /* === Header Styles === */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
                     position: sticky;
                     top: 0;
-                    background-color: #f8f8f8;  /* 헤더 배경색 */
-                    z-index: 1;  /* 헤더가 다른 내용 위로 표시되도록 설정 */
+                    z-index: 100;
                 }
-                .update-btn {
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    background-color: #ffeb3b;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
                 }
-                .update-btn:hover {
-                    background-color: #fbc02d;
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    text-decoration: none;
                 }
-                #updateStatus {
-                    margin-left: 10px;
-                    font-size: 14px;
-                    color: #555;
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
                 }
-                @media (max-width: 768px) {
-                    .attendance-table th, .attendance-table td {
-                        padding: 8px;
-                    }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
                 }
+
+                /* === Main Content Styles === */
+                main {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding-top: 2rem;
+                    padding-bottom: 2rem;
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
+                }
+
+                h2 {
+                    font-size: 2rem;
+                    margin-bottom: 1.5rem;
+                    color: var(--primary-blue);
+                    font-weight: 700;
+                    text-align: center;
+                }
+
+                /* === Filter Styles === */
                 .filter-container {
                     display: flex;
                     flex-direction: column;
                     width: 100%;
                     max-width: 1000px;
-                    margin-top: 10px;
+                    margin-bottom: 20px;
                     gap: 10px;
+                    background-color: var(--white);
+                    padding: 15px;
+                    border-radius: 12px;
+                    box-shadow: var(--shadow);
                 }
 
                 .filter-row {
                     display: flex;
                     flex-wrap: wrap;
                     gap: 20px;
-                    justify-content: flex-end;  /* 오른쪽 정렬 */
+                    justify-content: flex-end;
+                    align-items: center;
                 }
+
+                .filter-row label {
+                    font-size: 0.95rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    cursor: pointer;
+                }
+
+                .filter-row input[type="number"] {
+                    padding: 5px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                }
+
+                /* === Table Styles === */
+                .attendance-table-container {
+                    width: 100%;
+                    max-width: 1000px;
+                    height: 500px;
+                    overflow-y: auto;
+                    display: block;
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    box-shadow: var(--shadow);
+                    border: 1px solid #eee;
+                }
+
+                .attendance-table {
+                    width: 100%;
+                    border-collapse: separate;
+                    border-spacing: 0;
+                    font-size: 14px;
+                }
+
+                .attendance-table th, .attendance-table td {
+                    padding: 12px 10px;
+                    text-align: center;
+                    border-bottom: 1px solid #eee;
+                    border-right: 1px solid #eee;
+                    word-wrap: break-word;
+                    touch-action: manipulation;
+                }
+
+                .attendance-table td:last-child, .attendance-table th:last-child {
+                    border-right: none;
+                }
+
+                .attendance-table th {
+                    position: sticky;
+                    top: 0;
+                    background-color: var(--secondary-blue);
+                    color: var(--primary-blue);
+                    font-weight: 700;
+                    z-index: 1;
+                    border-bottom: 2px solid #ddd;
+                }
+
+                .attendance-table select {
+                    padding: 5px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    background-color: #fff;
+                }
+
+                /* === Button Styles === */
+                .button-area {
+                    margin-top: 20px;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    justify-content: center;
+                }
+
+                .update-btn {
+                    display: inline-block;
+                    padding: 12px 30px;
+                    font-size: 16px;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    transition: var(--transition);
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                }
+
+                .update-btn:hover:not(:disabled) {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
+                }
+
+                .update-btn:disabled {
+                    background-color: #ccc;
+                    cursor: not-allowed;
+                    transform: none;
+                }
+
+                #updateStatus {
+                    font-size: 14px;
+                    color: #666;
+                    font-weight: 500;
+                }
+
+                /* === Footer Styles === */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    margin-top: auto;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* === 도움말 아이콘 및 툴팁 스타일 === */
+                .help-container {
+                    position: relative;
+                    display: inline-block;
+                    margin-left: 6px;
+                    vertical-align: middle;
+                }
+
+                .help-icon {
+                    color: var(--primary-blue);
+                    cursor: pointer;
+                    font-size: 1.1rem;
+                    transition: color 0.2s;
+                }
+
+                .help-icon:hover {
+                    color: #004488;
+                }
+
+                /* 툴팁 본체 스타일 수정 */
+                .help-tooltip {
+                    visibility: hidden;
+                    width: 220px; /* 너비 유지 */
+                    background-color: rgba(50, 50, 50, 0.95);
+                    color: #fff;
+                    text-align: left;
+                    border-radius: 8px;
+                    padding: 10px 12px;
+                    position: absolute;
+                    z-index: 1000;
+
+                    /* === [수정] 위치 조정 (중앙 정렬 -> 왼쪽 정렬) === */
+                    top: 140%;
+                    left: -10px; /* 아이콘보다 살짝 왼쪽에서 시작 */
+                    transform: none; /* 중앙 정렬 제거 */
+                    /* =========================================== */
+
+                    opacity: 0;
+                    transition: opacity 0.3s, visibility 0.3s;
+                    font-size: 0.85rem;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                    white-space: normal;
+                }
+
+                /* 말풍선 화살표(꼬리) 스타일 수정 */
+                .help-tooltip::after {
+                    content: "";
+                    position: absolute;
+                    bottom: 100%;
+
+                    /* === [수정] 화살표 위치를 왼쪽으로 이동 === */
+                    left: 18px; /* 아이콘 바로 아래에 오도록 조정 */
+                    margin-left: 0; /* 중앙 정렬용 마진 제거 */
+                    /* ==================================== */
+
+                    border-width: 6px;
+                    border-style: solid;
+                    border-color: transparent transparent rgba(50, 50, 50, 0.95) transparent;
+                }
+
+                /* 활성화 클래스가 붙거나 마우스를 올렸을 때 보임 */
+                .help-container.active .help-tooltip,
+                .help-container:hover .help-tooltip {
+                    visibility: visible;
+                    opacity: 1;
+                }
+
+                /* === Responsive & Utilities === */
                 @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+
+                    /* [수정됨] 제목(h2) 스타일 모바일 최적화 */
+                    h2 {
+                        /* 화면 너비의 5.5% 크기 사용 (최대 1.5rem) */
+                        font-size: min(5.5vw, 1.5rem);
+                        /* 줄바꿈 금지 */
+                        white-space: nowrap;
+                    }
+
+                    .attendance-table th, .attendance-table td {
+                        padding: 8px 4px;
+                        font-size: 13px;
+                    }
                     .filter-row {
-                        justify-content: flex-end;
+                        justify-content: center;
                     }
                 }
+
                 .highlight-touch {
                     background-color: orange !important;
                 }
@@ -1307,14 +2390,14 @@ def attendance_check(week):
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
                     const rows = document.querySelectorAll(".attendance-table tbody tr");
-                    
+
                     rows.forEach(row => {
-                        const departmentCell = row.querySelector("td:nth-child(2)"); // "과" 열
+                        const departmentCell = row.querySelector("td:nth-child(2)");
                         if (departmentCell && departmentCell.textContent.trim() === "게스트") {
-                            row.style.display = "none"; // "게스트"인 행 숨김
+                            row.style.display = "none";
                         }
                         if (departmentCell && departmentCell.textContent.trim() === "오비") {
-                            row.style.display = "none"; // "오비"인 행 숨김
+                            row.style.display = "none";
                         }
                     });
                 });
@@ -1323,20 +2406,16 @@ def attendance_check(week):
                 let lastUpdateTime = "";
 
                 function handleCheckboxChange(row_id, column, checkbox) {
-                    // 하나의 체크박스만 선택되도록 하려면 다른 항목을 해제해야 함
                     const columns = ['출석', '지각', '불참'];
-
-                    // 하나만 체크되도록 다른 체크박스를 해제
                     columns.forEach(col => {
                         const checkboxes = document.getElementsByName(col + '_' + row_id);
                         checkboxes.forEach(cb => {
                             if (cb !== checkbox && cb.checked) {
-                                cb.checked = false;  // 다른 체크박스를 해제
+                                cb.checked = false;
                             }
                         });
                     });
 
-                    // 선택된 체크박스 상태 저장
                     attendanceData[row_id] = attendanceData[row_id] || {};
                     attendanceData[row_id][column] = checkbox.checked;
                 }
@@ -1345,10 +2424,9 @@ def attendance_check(week):
                     const button = document.getElementById("updateButton");
                     const statusText = document.getElementById("updateStatus");
 
-                    // 버튼 비활성화 및 텍스트 변경
                     button.disabled = true;
                     button.textContent = "저장중...";
-                    statusText.textContent = ""; // 상태 초기화
+                    statusText.textContent = "";
 
                     const data = Object.keys(attendanceData).map(row_id => {
                         return Object.keys(attendanceData[row_id]).map(column => {
@@ -1362,28 +2440,19 @@ def attendance_check(week):
 
                     fetch("/attendance_check/{{ week }}", {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(data)
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.status == "success") {
                             console.log("출석 정보가 모두 저장되었습니다.");
-
-                            // attendanceData 초기화
                             attendanceData = {};
-
-                            // 버튼 상태 및 텍스트 복원
                             button.textContent = "저장하기";
                             button.disabled = false;
-
-                            // 최근 저장 시간 표시
                             const now = new Date();
                             lastUpdateTime = now.toLocaleTimeString();
                             statusText.textContent = `최근 저장 시각: ${lastUpdateTime}`;
-                                  
                             alert("저장되었습니다.");
                         } else {
                             console.error("출석 정보 저장에 실패했습니다.");
@@ -1397,12 +2466,12 @@ def attendance_check(week):
                         button.disabled = false;
                     });
                 }
+
                 function handleParticipantTypeChange(row_id, selectElement) {
                     const value = selectElement.value;
                     attendanceData[row_id] = attendanceData[row_id] || {};
                     attendanceData[row_id]['참가 유형'] = value;
 
-                    // 부분참 시간이 수정 가능한지 토글
                     const partialTimeSelect = document.getElementById("partial_time_" + row_id);
                     if (value === "부분참") {
                         partialTimeSelect.disabled = false;
@@ -1410,16 +2479,13 @@ def attendance_check(week):
                     } else {
                         partialTimeSelect.disabled = true;
                         partialTimeSelect.style.display = "none";
-                        // 값도 초기화
                         partialTimeSelect.value = "";
                         attendanceData[row_id]['부분참 시간'] = "";
                     }
 
-                    // ✅ 배경색 즉시 변경
                     const row = selectElement.closest("tr");
                     const role = row.getAttribute("data-role");
 
-                    // 역할에 따른 색 우선 적용 (게스트/오비는 유지)
                     if (role === "게스트") {
                         row.style.backgroundColor = "#bcd6ac";
                     } else if (role === "오비") {
@@ -1434,17 +2500,15 @@ def attendance_check(week):
                     attendanceData[row_id] = attendanceData[row_id] || {};
                     attendanceData[row_id]['부분참 시간'] = value;
                 }
-                                  
+
                 function handleNameRightClick(event, rowIndex, name) {
                     event.preventDefault();
                     if (confirm(`${name} 행을 삭제하시겠습니까?`)) {
-                        disableUpdateButton(true);  // 저장 버튼 비활성화
+                        disableUpdateButton(true);
                         fetch("/delete_row/{{ week }}", {
                             method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({ row_id: rowIndex })  // ✅ row_id만 보내면 됨
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ row_id: rowIndex })
                         })
                         .then(res => res.json())
                         .then(data => {
@@ -1459,6 +2523,38 @@ def attendance_check(week):
                     }
                 }
 
+                // [추가] 이름 변경 처리 함수
+                function handleNameDblClick(rowIndex, currentName) {
+                    const newName = prompt("변경할 이름을 입력하세요:", currentName);
+
+                    if (newName && newName.trim() !== "" && newName !== currentName) {
+                        disableUpdateButton(true); // 업데이트 중 버튼 비활성화
+
+                        fetch("/update_name/{{ week }}", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                row_id: rowIndex,
+                                new_name: newName.trim()
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.status === "success") {
+                                alert("이름이 변경되었습니다.");
+                                location.reload(); // 변경 사항 반영을 위해 새로고침
+                            } else {
+                                alert("이름 변경 실패: " + data.message);
+                                disableUpdateButton(false);
+                            }
+                        })
+                        .catch(err => {
+                            alert("오류 발생: " + err);
+                            disableUpdateButton(false);
+                        });
+                    }
+                }
+
                 function disableUpdateButton(disable) {
                     const button = document.getElementById("updateButton");
                     if (button) {
@@ -1466,6 +2562,7 @@ def attendance_check(week):
                         button.textContent = disable ? "로딩 중..." : "저장하기";
                     }
                 }
+
                 function applyFilters() {
                     const hideGuestOb = document.getElementById("hideGuestObCheckbox").checked;
                     const filterUnmarked = document.getElementById("filterUnmarkedCheckbox").checked;
@@ -1491,7 +2588,6 @@ def attendance_check(week):
                             }
                         }
 
-                        // === 배경색 복원 ===
                         if (role === "게스트") {
                             row.style.backgroundColor = "#bcd6ac";
                         } else if (role === "오비") {
@@ -1502,26 +2598,21 @@ def attendance_check(week):
                             row.style.backgroundColor = "#ffffff";
                         }
 
-                        // === 정원 초과 시 회색 처리 ===
                         if (filterQuota && quota > 0 && (role === "게스트" || role === "부원" || role === "신입부원") && !isQuotaTarget) {
                             row.style.backgroundColor = "#666666";
-
-                            // 내부 select와 input 요소들도 회색 배경 및 텍스트 색 조정
                             row.querySelectorAll("select, input[type='checkbox']").forEach(elem => {
                                 elem.style.backgroundColor = "#666666";
                                 if (elem.tagName === "SELECT") {
                                     elem.style.borderColor = "#999999";
                                 }
                             });
-                        }
-                        else {
+                        } else {
                             row.querySelectorAll("select, input[type='checkbox']").forEach(elem => {
-                                elem.style.backgroundColor = "";  // 기본값
+                                elem.style.backgroundColor = "";
                                 elem.style.borderColor = "";
                             });
                         }
 
-                        // === 행 숨김 처리 ===
                         if (hideGuestOb && (role === "게스트" || role === "오비")) {
                             hide = true;
                         }
@@ -1534,159 +2625,284 @@ def attendance_check(week):
                 }
 
                 document.addEventListener("DOMContentLoaded", () => {
-                    applyFilters();  // 초기 상태 반영
+                    applyFilters();
                 });
+
                 document.addEventListener("DOMContentLoaded", () => {
                     const rows = document.querySelectorAll(".attendance-table tbody tr");
 
                     rows.forEach((row, index) => {
-                        const name = row.querySelector("td:nth-child(2)").textContent.trim();
+                        const nameCell = row.querySelector("td:nth-child(2)"); // 이름 셀
+                        const name = nameCell.textContent.trim();
                         const cells = row.querySelectorAll("td");
 
+                        // 1. PC용: 더블 클릭 이벤트
+                        nameCell.addEventListener("dblclick", (e) => {
+                            e.preventDefault();
+                            handleNameDblClick(index, name);
+                        });
+
+                        // 2. 모바일용: 더블 탭 감지 로직
+                        let lastTouchTime = 0;
+                        nameCell.addEventListener("touchend", (e) => {
+                            const currentTime = new Date().getTime();
+                            const timeDiff = currentTime - lastTouchTime;
+
+                            // 300ms(0.3초) 이내에 다시 터치했다면 더블 탭으로 인정
+                            if (timeDiff < 300 && timeDiff > 0) {
+                                e.preventDefault(); // 기본 동작 방지
+                                handleNameDblClick(index, name);
+                            }
+                            lastTouchTime = currentTime;
+                        });
+
+                        // 3. 공통: 터치 하이라이트 및 우클릭(삭제) 처리
                         cells.forEach(cell => {
-                            // 모바일: touchstart → highlight
+                            // 터치 시작 시 하이라이트
                             cell.addEventListener("touchstart", () => {
                                 row.classList.add("highlight-touch");
                             });
 
-                            // 모바일: alert 뜨기 전에 제거
+                            // 우클릭(삭제)
                             cell.addEventListener("contextmenu", (e) => {
                                 e.preventDefault();
-                                row.classList.remove("highlight-touch");  // ⭐ alert 전에 제거
+                                row.classList.remove("highlight-touch");
                                 handleNameRightClick(e, index, name);
                             });
 
-                            // 백업: touchend or touchcancel → highlight 제거
+                            // 터치 끝날 때 하이라이트 제거
                             cell.addEventListener("touchend", () => {
-                                row.classList.remove("highlight-touch");
+                                // 약간의 딜레이를 주어 사용자가 터치했음을 인지하게 함
+                                setTimeout(() => {
+                                    row.classList.remove("highlight-touch");
+                                }, 150);
                             });
+
+                            // 터치 취소 시 하이라이트 제거
                             cell.addEventListener("touchcancel", () => {
                                 row.classList.remove("highlight-touch");
                             });
                         });
                     });
                 });
+
                 document.addEventListener("DOMContentLoaded", () => {
                     const week = "{{ week }}";
-                    const day = week.split("_")[2];  // 예: 'Tuesday'
-
+                    const day = week.split("_")[2];
                     const quotaInput = document.getElementById("quotaInput");
                     if (day === "Tuesday" || day === "Thursday") {
                         quotaInput.value = 24;
                     } else {
                         quotaInput.value = 36;
                     }
-
-                    applyFilters();  // 초기 필터 적용
+                    applyFilters();
                 });
+
                 function toggleTimestampColumn() {
                     const show = document.getElementById("showTimestampCheckbox").checked;
                     const displayStyle = show ? "" : "none";
-
                     const timestampHeaders = document.querySelectorAll(".timestamp-col");
                     timestampHeaders.forEach(el => {
                         el.style.display = displayStyle;
                     });
                 }
+
+                // 도움말 아이콘 터치 시 툴팁 토글 (모바일용)
+                function toggleTooltip(element) {
+                    // 이미 켜져있으면 끄고, 꺼져있으면 켬
+                    const wasActive = element.classList.contains('active');
+
+                    // 다른 열려있는 툴팁들 닫기 (확장성을 위해)
+                    document.querySelectorAll('.help-container').forEach(el => el.classList.remove('active'));
+
+                    if (!wasActive) {
+                        element.classList.add('active');
+                    }
+                }
+
+                // 화면의 다른 곳을 터치하면 툴팁 닫기
+                document.addEventListener('click', function(event) {
+                    const isClickInside = event.target.closest('.help-container');
+                    if (!isClickInside) {
+                        document.querySelectorAll('.help-container').forEach(el => el.classList.remove('active'));
+                    }
+                });
             </script>
         </head>
         <body>
-            <h2>{{ attendance_title }}</h2>
-            <div class="filter-container">
-                <div class="filter-row">
-                    <label>
-                        <input type="checkbox" id="showTimestampCheckbox" onchange="toggleTimestampColumn()"> 타임스탬프 보기
-                    </label>
-                    <label>
-                        <input type="checkbox" id="hideGuestObCheckbox" checked onchange="applyFilters()"> 게스트/오비 숨기기
-                    </label>
+            <header>
+                <div class="header-container">
+                    <a href="/" class="logo-title">
+                        <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </a>
                 </div>
-                <div class="filter-row">
-                    <label>
-                        정원:
-                        <input type="number" id="quotaInput" value="0" style="width: 60px;" min="0" onchange="applyFilters()">
-                    </label>
-                    <label>
-                        <input type="checkbox" id="filterQuotaCheckbox" onchange="applyFilters()"> 정원 필터링
-                    </label>
+            </header>
+
+            <main>
+                <h2>{{ attendance_title }}</h2>
+
+                <div class="filter-container">
+                    <div class="filter-row">
+                        <label>
+                            <input type="checkbox" id="showTimestampCheckbox" onchange="toggleTimestampColumn()"> 타임스탬프 보기
+                        </label>
+                        <label>
+                            <input type="checkbox" id="hideGuestObCheckbox" checked onchange="applyFilters()"> 게스트/오비 숨기기
+                        </label>
+                    </div>
+                    <div class="filter-row">
+                        <label>
+                            정원:
+                            <input type="number" id="quotaInput" value="0" style="width: 60px;" min="0" onchange="applyFilters()">
+                        </label>
+                        <label>
+                            <input type="checkbox" id="filterQuotaCheckbox" onchange="applyFilters()"> 정원 필터링
+                        </label>
+                    </div>
+                    <div class="filter-row">
+                        <label>
+                            <input type="checkbox" id="filterUnmarkedCheckbox" onchange="applyFilters()"> 출석 미체크 행 표시
+                        </label>
+                    </div>
                 </div>
-                <div class="filter-row">
-                    <label>
-                        <input type="checkbox" id="filterUnmarkedCheckbox" onchange="applyFilters()"> 출석 미체크 행 표시
-                    </label>
+
+                {% if sheet_data %}
+                <div class="attendance-table-container">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th class="timestamp-col" style="display:none;">타임스탬프</th>
+                                <th>
+                                    이름
+                                    <div class="help-container" onclick="toggleTooltip(this)">
+                                        <i class="fas fa-circle-question help-icon"></i>
+                                        <div class="help-tooltip">
+                                            <strong><i class="fas fa-mouse-pointer"></i> 사용 방법</strong><br>
+                                            • <strong>수정:</strong> 이름 더블 클릭 (더블 탭)<br>
+                                            • <strong>삭제:</strong> 이름 우클릭 (길게 누르기)
+                                        </div>
+                                    </div>
+                                </th>
+                                <th>참가 유형</th>
+                                <th>부분참 시간</th>
+                                <th>출석</th>
+                                <th>지각</th>
+                                <th>불참</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in sheet_data %}
+                            <tr
+                                data-role="{{ row['참여자 구분'] }}"
+                                data-attendance="{% if row['출석'] != 'TRUE' and row['지각'] != 'TRUE' and row['불참'] != 'TRUE' %}none{% else %}marked{% endif %}"
+                                {% if row['참여자 구분'] == '게스트' %}
+                                    style="background-color: #bcd6ac;"
+                                {% elif row['참여자 구분'] == '오비' %}
+                                    style="background-color: #cfd9f5;"
+                                {% elif row['참가 유형'] == '부분참' %}
+                                    style="background-color: #ffff54;"
+                                {% endif %}
+                            >
+                                <td class="timestamp-col" style="display:none;">
+                                    {{ row['타임스탬프'] or '' }}
+                                </td>
+                                <td style="cursor: pointer;" title="더블 클릭하여 이름 변경 / 우클릭하여 삭제">
+                                    {{ row['이름'] }}
+                                </td>
+                                <td>
+                                    <select name="type_{{ loop.index0 }}" onchange="handleParticipantTypeChange({{ loop.index0 }}, this)">
+                                        <option value="정참" {% if row['참가 유형'] == "정참" %}selected{% endif %}>정참</option>
+                                        <option value="부분참" {% if row['참가 유형'] == "부분참" %}selected{% endif %}>부분참</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select id="partial_time_{{ loop.index0 }}" name="부분참_{{ loop.index0 }}"
+                                            onchange="handlePartialTimeChange({{ loop.index0 }}, this)"
+                                            {% if row['참가 유형'] != "부분참" %}disabled style="display:none;"{% endif %}>
+                                        <option value="19시-21시" {% if (row['부분참 시간'] or '') == "19시-21시" %}selected{% endif %}>19시-21시</option>
+                                        <option value="20시-22시" {% if (row['부분참 시간'] or '') == "20시-22시" %}selected{% endif %}>20시-22시</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="출석_{{ loop.index0 }}" {% if row['출석'] == "TRUE" %}checked{% endif %} onchange="handleCheckboxChange({{ loop.index0 }}, '출석', this)">
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="지각_{{ loop.index0 }}" {% if row['지각'] == "TRUE" %}checked{% endif %} onchange="handleCheckboxChange({{ loop.index0 }}, '지각', this)">
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="불참_{{ loop.index0 }}" {% if row['불참'] == "TRUE" %}checked{% endif %} onchange="handleCheckboxChange({{ loop.index0 }}, '불참', this)">
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            {% if sheet_data %}
-            <div class="attendance-table-container">
-                <table class="attendance-table">
-                    <thead>
-                        <tr>
-                            <th class="timestamp-col" style="display:none;">타임스탬프</th>
-                            <th>이름</th>
-                            <th>참가 유형</th>
-                            <th>부분참 시간</th>
-                            <th>출석</th>
-                            <th>지각</th>
-                            <th>불참</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in sheet_data %}
-                        <tr 
-                            data-role="{{ row['참여자 구분'] }}"
-                            data-attendance="{% if row['출석'] != 'TRUE' and row['지각'] != 'TRUE' and row['불참'] != 'TRUE' %}none{% else %}marked{% endif %}"
-                            {% if row['참여자 구분'] == '게스트' %}
-                                style="background-color: #bcd6ac;"
-                            {% elif row['참여자 구분'] == '오비' %}
-                                style="background-color: #cfd9f5;"
-                            {% elif row['참가 유형'] == '부분참' %}
-                                style="background-color: #ffff54;"
-                            {% endif %}
-                        >
-                            <td class="timestamp-col" style="display:none;">
-                                {{ row['타임스탬프'] or '' }}
-                            </td>
-                            <td style="cursor: context-menu;">
-                                {{ row['이름'] }}
-                            </td>
-                            <td>
-                                <select name="type_{{ loop.index0 }}" onchange="handleParticipantTypeChange({{ loop.index0 }}, this)">
-                                    <option value="정참" {% if row['참가 유형'] == "정참" %}selected{% endif %}>정참</option>
-                                    <option value="부분참" {% if row['참가 유형'] == "부분참" %}selected{% endif %}>부분참</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="partial_time_{{ loop.index0 }}" name="부분참_{{ loop.index0 }}"
-                                        onchange="handlePartialTimeChange({{ loop.index0 }}, this)"
-                                        {% if row['참가 유형'] != "부분참" %}disabled style="display:none;"{% endif %}>
-                                    <option value="19시-21시" {% if (row['부분참 시간'] or '') == "19시-21시" %}selected{% endif %}>19시-21시</option>
-                                    <option value="20시-22시" {% if (row['부분참 시간'] or '') == "20시-22시" %}selected{% endif %}>20시-22시</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="checkbox" name="출석_{{ loop.index0 }}" {% if row['출석'] == "TRUE" %}checked{% endif %} onchange="handleCheckboxChange({{ loop.index0 }}, '출석', this)">
-                            </td>
-                            <td>
-                                <input type="checkbox" name="지각_{{ loop.index0 }}" {% if row['지각'] == "TRUE" %}checked{% endif %} onchange="handleCheckboxChange({{ loop.index0 }}, '지각', this)">
-                            </td>
-                            <td>
-                                <input type="checkbox" name="불참_{{ loop.index0 }}" {% if row['불참'] == "TRUE" %}checked{% endif %} onchange="handleCheckboxChange({{ loop.index0 }}, '불참', this)">
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div style="margin-top: 20px;">
-                <button id="updateButton" class="update-btn" onclick="updateAllAttendance()">저장하기</button>
-                <span id="updateStatus"></span>
-            </div>
-            {% else %}
-            <p>출석 데이터를 가져오는 데 실패했습니다. 다시 시도해주세요.</p>
-            {% endif %}
+                <div class="button-area">
+                    <button id="updateButton" class="update-btn" onclick="updateAllAttendance()">저장하기</button>
+                    <span id="updateStatus"></span>
+                </div>
+                {% else %}
+                <p>출석 데이터를 가져오는 데 실패했습니다. 다시 시도해주세요.</p>
+                {% endif %}
+            </main>
+
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """, sheet_data=sheet_data, week=week, attendance_title=attendance_title)
+
+@app.route("/update_name/<week>", methods=["POST"])
+def update_name(week):
+    try:
+        data = request.json
+        row_id = int(data.get('row_id'))
+        new_name = data.get('new_name')
+
+        if not new_name:
+            return jsonify({"status": "error", "message": "이름이 입력되지 않았습니다."})
+
+        # --- 기존 로직과 동일하게 시트 접근 ---
+        week_info = week.split('_')
+        week_number = f"{week_info[0]}_{week_info[1]}"
+        day_of_week = week_info[2]
+        sheet_id = sheet_ids.get(week_number)
+
+        day_of_week_mapping = {
+            'Sunday': '일요일', 'Monday': '월요일', 'Tuesday': '화요일',
+            'Thursday': '목요일', 'Saturday': '토요일'
+        }
+        korean_day_of_week = day_of_week_mapping.get(day_of_week)
+
+        credentials_info = get_secret('gspread-credentials', credentials=deploy_credentials)
+        client = gspread.service_account_from_dict(credentials_info)
+        sheet = client.open_by_key(sheet_id).worksheet(korean_day_of_week)
+        # ----------------------------------
+
+        # '이름' 컬럼 위치 찾기
+        headers = sheet.row_values(1)
+        if "이름" not in headers:
+            return jsonify({"status": "error", "message": "'이름' 컬럼을 찾을 수 없습니다."})
+
+        name_col_index = headers.index("이름") + 1
+
+        # 셀 업데이트 (row_id는 0부터 시작하므로 +2 필요: 헤더1행 + 1-based index)
+        sheet.update_cell(row_id + 2, name_col_index, new_name)
+
+        return jsonify({"status": "success"})
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
 
 # 6-1. 행 삭제 라우트
 @app.route("/delete_row/<week>", methods=["POST"])
@@ -1959,13 +3175,28 @@ def attendance_selection():
                         font-size: 1.8rem;
                     }
 
+                    /* 버튼 그룹을 가로로 유지 */
                     .button-group {
-                        flex-direction: column;
-                        gap: 8px;
+                        display: flex;
+                        flex-direction: row; /* 가로 배치 강제 */
+                        justify-content: center;
+                        gap: 6px; /* 간격 살짝 축소 */
+                        flex-wrap: nowrap; /* 줄바꿈 방지 */
                     }
 
-                    .btn {
-                        width: 100%;
+                    /* 모바일 화면에 맞춰 버튼 크기 최적화 */
+                    .attendance-selection-btn {
+                        padding: 8px 12px; /* 패딩 축소 */
+                        font-size: 13px;    /* 글자 크기 축소 */
+                        flex: 1;           /* 버튼이 동일한 비율로 너비를 가짐 */
+                        max-width: 100px;  /* 너무 커지는 것 방지 */
+                        white-space: nowrap; /* 텍스트 한 줄 유지 */
+                        text-align: center;
+                    }
+
+                    /* 테이블 패딩 조절 */
+                    .attendance-selection-table td {
+                        padding: 10px 5px;
                     }
                 }
             </style>
@@ -2058,52 +3289,270 @@ def send_schedule():
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>스누민턴 운영부 - 시간표 공지 전송</title>
+                        <title>스누민턴 운영부 - 전송 완료</title>
                         <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+
+                        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
                         <style>
+                            :root {
+                                --primary-blue: #0066cc;
+                                --primary-yellow: #ffeb3b;
+                                --secondary-blue: #e6f0ff;
+                                --dark-gray: #333333;
+                                --light-gray: #f5f5f5;
+                                --medium-gray: #e0e0e0;
+                                --white: #ffffff;
+                                --success-green: #28a745;
+                                --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                                --transition: all 0.3s ease;
+                            }
+
+                            * {
+                                margin: 0;
+                                padding: 0;
+                                box-sizing: border-box;
+                            }
+
                             body {
+                                font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                                background-color: var(--light-gray);
+                                color: var(--dark-gray);
+                                line-height: 1.6;
+                                min-height: 100vh;
+                                display: flex;
+                                flex-direction: column;
+                            }
+
+                            /* Header Styles */
+                            header {
+                                background-color: var(--white);
+                                box-shadow: var(--shadow);
+                                padding: 1rem 2rem;
+                                position: sticky;
+                                top: 0;
+                                z-index: 100;
+                            }
+
+                            .header-container {
+                                max-width: 1200px;
+                                margin: 0 auto;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                            }
+
+                            .logo-title {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                text-decoration: none;
+                            }
+
+                            .logo {
+                                width: 50px;
+                                height: 50px;
+                            }
+
+                            .title {
+                                font-size: 1.5rem;
+                                font-weight: 700;
+                                color: var(--primary-blue);
+                            }
+
+                            /* Main Content Styles */
+                            main {
+                                flex: 1;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                padding: 2rem;
+                                max-width: 1200px;
+                                margin: 0 auto;
+                                width: 100%;
+                            }
+
+                            .hero {
+                                text-align: center;
+                                margin-bottom: 2rem;
+                            }
+
+                            .hero h1 {
+                                font-size: 2.5rem;
+                                margin-bottom: 0.5rem;
+                                color: var(--primary-blue);
+                            }
+
+                            /* Success Card Styles */
+                            .content-card {
+                                background-color: var(--white);
+                                border-radius: 12px;
+                                box-shadow: var(--shadow);
+                                padding: 3rem 2rem;
+                                width: 100%;
+                                max-width: 600px;
+                                text-align: center;
+                                transition: var(--transition);
+                            }
+
+                            .success-icon {
+                                font-size: 4rem;
+                                color: var(--success-green);
+                                margin-bottom: 1.5rem;
+                                animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                            }
+
+                            .success-msg {
+                                font-size: 1.5rem;
+                                font-weight: 700;
+                                margin-bottom: 2.5rem;
+                                color: var(--dark-gray);
+                            }
+
+                            /* Button Styles */
+                            .btn-container {
+                                display: flex;
+                                gap: 1rem;
+                                justify-content: center;
+                            }
+
+                            .btn {
+                                flex: 1;
+                                padding: 1rem;
+                                border-radius: 8px;
+                                font-size: 1.1rem;
+                                font-weight: 700;
+                                text-decoration: none;
+                                cursor: pointer;
+                                transition: var(--transition);
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 0.5rem;
+                            }
+
+                            .btn-primary {
+                                background-color: var(--primary-blue);
+                                color: var(--white);
+                                border: 2px solid var(--primary-blue);
+                            }
+
+                            .btn-primary:hover {
+                                background-color: #0052a3;
+                                border-color: #0052a3;
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+                            }
+
+                            .btn-secondary {
+                                background-color: var(--white);
+                                color: #666;
+                                border: 2px solid var(--medium-gray);
+                            }
+
+                            .btn-secondary:hover {
+                                background-color: #f8f9fa;
+                                border-color: #bbb;
+                                color: var(--dark-gray);
+                                transform: translateY(-2px);
+                            }
+
+                            /* Footer Styles */
+                            footer {
+                                background-color: var(--dark-gray);
+                                color: var(--white);
+                                padding: 2rem;
+                                text-align: center;
+                                margin-top: auto;
+                            }
+
+                            .footer-content {
+                                max-width: 1200px;
+                                margin: 0 auto;
+                            }
+
+                            .social-links {
                                 display: flex;
                                 justify-content: center;
-                                align-items: center;
-                                height: 100vh;
-                                margin: 0;
-                                flex-direction: column;
-                                font-family: Arial, sans-serif;
+                                gap: 1.5rem;
+                                margin: 1rem 0;
                             }
-                            .success-msg {
-                                font-size: 24px;
-                                font-weight: bold;
-                                margin-bottom: 20px;
-                                color: green;
+
+                            .social-links a {
+                                color: var(--white);
+                                font-size: 1.5rem;
+                                transition: var(--transition);
                             }
-                            .button-container {
-                                display: flex;
-                                gap: 10px;
+
+                            .social-links a:hover {
+                                color: var(--primary-yellow);
                             }
-                            .btn {
-                                padding: 10px 20px;
-                                font-size: 16px;
-                                background-color: #ffeb3b;
-                                border: none;
-                                border-radius: 5px;
-                                cursor: pointer;
-                                transition: background-color 0.3s;
+
+                            .copyright {
+                                margin-top: 1rem;
+                                font-size: 0.9rem;
+                                color: #bbb;
                             }
-                            .btn:hover {
-                                background-color: #fbc02d;
+
+                            /* Animation */
+                            @keyframes popIn {
+                                0% { transform: scale(0); opacity: 0; }
+                                100% { transform: scale(1); opacity: 1; }
+                            }
+
+                            /* Responsive */
+                            @media (max-width: 768px) {
+                                .hero h1 { font-size: 2rem; }
+                                .content-card { padding: 2rem 1.5rem; }
+                                .btn-container { flex-direction: column; }
+                                .btn { width: 100%; }
                             }
                         </style>
                     </head>
                     <body>
-                        <div class="success-msg">시간표 공지가 성공적으로 전송되었습니다!</div>
-                        <div class="button-container">
-                            <a href="{{ url_for('send_schedule') }}">
-                                <button class="btn">다시 보내기</button>
-                            </a>
-                            <a href="{{ url_for('index') }}">
-                                <button class="btn">홈으로 돌아가기</button>
-                            </a>
-                        </div>
+                        <header>
+                            <div class="header-container">
+                                <a href="/" class="logo-title">
+                                    <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
+                                    <div class="title">스누민턴 운영부</div>
+                                </a>
+                            </div>
+                        </header>
+
+                        <main>
+                            <section class="hero">
+                                <h1>전송 완료</h1>
+                            </section>
+
+                            <div class="content-card">
+                                <div class="success-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="success-msg">시간표 공지가<br>성공적으로 전송되었습니다!</div>
+
+                                <div class="btn-container">
+                                    <a href="{{ url_for('index') }}" class="btn btn-primary">
+                                        <i class="fas fa-home"></i> 홈으로
+                                    </a>
+                                    <a href="{{ url_for('send_schedule') }}" class="btn btn-secondary">
+                                        <i class="fas fa-redo"></i> 다시 보내기
+                                    </a>
+                                </div>
+                            </div>
+                        </main>
+
+                        <footer>
+                            <div class="footer-content">
+                                <div class="social-links">
+                                    <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                                </div>
+                                <div class="copyright">
+                                    &copy; 2025 김성진. All rights reserved.<br>
+                                    업데이트: """ + UPDATE_DATE + """
+                                </div>
+                            </div>
+                        </footer>
                     </body>
                     </html>
                 """)
@@ -2119,97 +3568,353 @@ def send_schedule():
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 시간표 공지 전송</title>
             <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --border-color: #ddd;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
                     margin: 0;
-                    flex-direction: column;
-                    font-family: Arial, sans-serif;
+                    padding: 0;
+                    box-sizing: border-box;
                 }
-                .logo-container {
-                    position: relative;
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    text-decoration: none;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
                 }
-                .logo {
-                    width: 100px;
-                    height: 100px;
-                    margin-bottom: 0px;
+
+                .hero {
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    max-width: 800px;
                 }
-                .title {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 10px;
+
+                .hero h1 {
+                    font-size: 2.5rem;
+                    margin-bottom: 0.5rem;
+                    color: var(--primary-blue);
+                    white-space: nowrap;
                 }
-                .input-container {
-                    margin-bottom: 20px;
+
+                .hero p {
+                    font-size: 1.1rem;
+                    color: #555;
+                    white-space: nowrap;
                 }
-                .send-btn {
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    background-color: #ffeb3b;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
+
+                /* Form Card Styles */
+                .content-card {
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    box-shadow: var(--shadow);
+                    padding: 2.5rem;
+                    width: 100%;
+                    max-width: 800px;
+                    transition: var(--transition);
+                }
+
+                .input-group {
+                    margin-bottom: 1.5rem;
+                }
+
+                .input-group label {
                     display: block;
+                    margin-bottom: 0.5rem;
+                    font-weight: 500;
+                    color: var(--dark-gray);
+                }
+
+                /* Common styles for Input and Textarea */
+                input[type="text"],
+                textarea {
+                    width: 100%;
+                    padding: 1rem;
+                    border: 1px solid var(--border-color);
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    font-family: inherit;
+                    transition: var(--transition);
+                }
+
+                input[type="text"]:focus,
+                textarea:focus {
+                    outline: none;
+                    border-color: var(--primary-blue);
+                    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+                }
+
+                textarea {
+                    resize: vertical;
+                    min-height: 120px;
+                }
+
+                /* File Upload Styling - 수정됨 */
+                .file-upload-wrapper {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-top: 0.5rem;
+                    width: 100%; /* 너비 확보 */
+                }
+
+                .file-upload-btn {
+                    background-color: var(--secondary-blue);
+                    color: var(--primary-blue);
+                    padding: 0.8rem 1.5rem;
+                    border: 1px solid transparent;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: var(--transition);
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    white-space: nowrap; /* 버튼 텍스트 줄바꿈 방지 */
+                    flex-shrink: 0; /* 버튼 크기가 줄어들지 않도록 고정 */
+                }
+
+                .file-upload-btn:hover {
+                    background-color: #d1e3ff;
+                    border-color: var(--primary-blue);
+                }
+
+                .file-name {
+                    color: #666;
+                    font-size: 0.95rem;
+                    /* 긴 파일명 처리를 위한 스타일 수정 */
+                    flex: 1;          /* 남은 공간을 모두 차지 */
+                    min-width: 0;     /* Flex item 내에서 말줄임표 작동을 위한 필수 속성 */
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                /* Submit Button */
+                .btn-submit {
+                    display: block;
+                    width: 100%;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 1rem;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: var(--transition);
+                    margin-top: 1rem;
+                }
+
+                .btn-submit:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+                }
+
+                /* Footer Styles */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    margin-top: auto;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
                     margin: 0 auto;
                 }
-                .send-btn:hover {
-                    background-color: #fbc02d;
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
                 }
-                input, textarea {
-                    width: 100%;
-                    padding: 10px;
-                    margin: 5px 0;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    font-size: 16px;
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
                 }
-                textarea {
-                    resize: none;
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive - 수정됨 */
+                @media (max-width: 768px) {
+                    .hero h1 {
+                        font-size: min(6.5vw, 2rem);
+                    }
+                    .hero p {
+                        font-size: 0.95rem;
+                    }
+                    .content-card {
+                        padding: 1.5rem;
+                    }
+                    main {
+                        padding: 1rem;
+                    }
+                    /* .file-upload-wrapper에 있던 세로 정렬 코드를 제거하여 가로 배치 유지 */
+                    .file-upload-btn {
+                        padding: 0.8rem 1rem; /* 모바일에서 버튼 패딩 약간 조절 */
+                        font-size: 0.9rem;
+                    }
                 }
             </style>
         </head>
         <body>
-            <div class="logo-container">
-                <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
-            </div>
-            <div class="title">< 시간표 공지 전송 ></div>
-            <form method="POST" enctype="multipart/form-data">
-                <div class="input-container">
-                    <input type="text" id="title" name="title" value="1월 1주차 운동신청톡방입니다." placeholder="제목을 입력하세요">
+            <header>
+                <div class="header-container">
+                    <a href="/" class="logo-title">
+                        <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </a>
                 </div>
-                <div class="input-container">
-                    <textarea id="message" name="message" rows="5" placeholder="오픈채팅방 주소를 입력하세요"></textarea>
+            </header>
+
+            <main>
+                <section class="hero">
+                    <h1>시간표 공지 전송</h1>
+                    <p>공지할 시간표 이미지와 내용을 입력하세요.</p>
+                </section>
+
+                <div class="content-card">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <label for="title">제목</label>
+                            <input type="text" id="title" name="title" value="1월 1주차 운동신청톡방입니다." placeholder="제목을 입력하세요">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="message">내용</label>
+                            <textarea id="message" name="message" rows="5" placeholder="오픈채팅방 주소를 입력하세요"></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>이번주 시간표</label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="image" name="image" accept="image/*" style="display: none;">
+                                <button type="button" class="file-upload-btn" onclick="document.getElementById('image').click()">
+                                    <i class="fas fa-calendar-check"></i> 파일 선택
+                                </button>
+                                <span id="file-name" class="file-name">선택된 파일 없음</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>다음주 시간표</label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="image2" name="image2" accept="image/*" style="display: none;">
+                                <button type="button" class="file-upload-btn" onclick="document.getElementById('image2').click()">
+                                    <i class="fas fa-calendar-plus"></i> 파일 선택
+                                </button>
+                                <span id="file-name2" class="file-name">선택된 파일 없음</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> 나에게 보내기
+                        </button>
+                    </form>
                 </div>
-                <div class="input-container">
-                    <input type="file" id="image" name="image" accept="image/*" style="display: none;">
-                    <button type="button" onclick="document.getElementById('image').click()">이번주 시간표 선택</button>
-                    <span id="file-name">이번주 시간표를 선택하세요</span>
+            </main>
+
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
                 </div>
-                <div class="input-container">
-                    <input type="file" id="image2" name="image2" accept="image/*" style="display: none;">
-                    <button type="button" onclick="document.getElementById('image2').click()">다음주 시간표 선택</button>
-                    <span id="file-name2">다음주 시간표를 선택하세요</span>
-                </div>
-                <script>
-                    document.getElementById('image').addEventListener('change', function() {
-                        var fileName = this.files.length > 0 ? this.files[0].name : "";
-                        document.getElementById('file-name').textContent = fileName;
-                    });
-                    document.getElementById('image2').addEventListener('change', function() {
-                        var fileName = this.files.length > 0 ? this.files[0].name : "";
-                        document.getElementById('file-name2').textContent = fileName;
-                    });
-                </script>
-                <button type="submit" class="send-btn">나에게 보내기</button>
-            </form>
+            </footer>
+
+            <script>
+                document.getElementById('image').addEventListener('change', function() {
+                    var fileName = this.files.length > 0 ? this.files[0].name : "선택된 파일 없음";
+                    document.getElementById('file-name').textContent = fileName;
+                });
+                document.getElementById('image2').addEventListener('change', function() {
+                    var fileName = this.files.length > 0 ? this.files[0].name : "선택된 파일 없음";
+                    document.getElementById('file-name2').textContent = fileName;
+                });
+            </script>
         </body>
         </html>
     """)
@@ -2448,13 +4153,28 @@ def etc_selection():
                         font-size: 1.8rem;
                     }
 
+                    /* 버튼 그룹을 가로 배치로 유지 */
                     .button-group {
-                        flex-direction: column;
-                        gap: 8px;
+                        display: flex;
+                        flex-direction: row; /* 세로가 아닌 가로 유지 */
+                        justify-content: center;
+                        gap: 6px; /* 버튼 간격 좁힘 */
+                        flex-wrap: nowrap; /* 줄바꿈 방지 */
                     }
 
-                    .btn {
-                        width: 100%;
+                    /* 모바일 화면 너비에 맞춰 버튼 너비 유동적 조절 */
+                    .attendance-selection-btn {
+                        padding: 8px 12px; /* 패딩 축소 */
+                        font-size: 13px;    /* 글자 크기 축소 */
+                        flex: 1;           /* 버튼이 동일한 비율로 너비를 가짐 */
+                        max-width: 100px;  /* 너무 커지는 것 방지 */
+                        white-space: nowrap; /* 텍스트 한 줄 유지 */
+                        text-align: center;
+                    }
+
+                    /* 테이블 패딩 조절 */
+                    .attendance-selection-table td {
+                        padding: 10px 5px;
                     }
                 }
             </style>
@@ -2620,65 +4340,239 @@ def etc_check(week):
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 비고 수정</title>
             <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
+                /* === 통합 스타일 변수 (참조 코드와 동일) === */
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
                     margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
                     flex-direction: column;
-                    font-family: Arial, sans-serif;
-                    padding: 20px;
                 }
+
+                /* === Header Styles === */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    text-decoration: none;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* === Main Content Styles === */
+                main {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding-top: 2rem;
+                    padding-bottom: 2rem;
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
+                }
+
                 h2 {
-                    margin-bottom: 20px;
+                    font-size: 2rem;
+                    margin-bottom: 1.5rem;
+                    color: var(--primary-blue);
+                    font-weight: 700;
+                    text-align: center;
                 }
+
+                /* === Table Styles === */
                 .attendance-table-container {
                     width: 100%;
                     max-width: 1000px;
-                    height: 500px;  /* 고정 높이 설정 */
-                    overflow-y: auto;  /* 세로 스크롤 추가 */
-                    margin-top: 20px;
+                    height: 500px;
+                    overflow-y: auto;
                     display: block;
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    box-shadow: var(--shadow);
+                    border: 1px solid #eee;
                 }
+
                 .attendance-table {
                     width: 100%;
-                    border-collapse: collapse;
+                    border-collapse: separate;
+                    border-spacing: 0;
                     font-size: 14px;
                 }
+
                 .attendance-table th, .attendance-table td {
-                    padding: 10px;
+                    padding: 12px 10px;
                     text-align: center;
-                    border: 1px solid #ddd;
+                    border-bottom: 1px solid #eee;
+                    border-right: 1px solid #eee;
                     word-wrap: break-word;
                 }
+
+                .attendance-table td:last-child, .attendance-table th:last-child {
+                    border-right: none;
+                }
+
                 .attendance-table th {
                     position: sticky;
                     top: 0;
-                    background-color: #f8f8f8;  /* 헤더 배경색 */
-                    z-index: 1;  /* 헤더가 다른 내용 위로 표시되도록 설정 */
+                    background-color: var(--secondary-blue);
+                    color: var(--primary-blue);
+                    font-weight: 700;
+                    z-index: 1;
+                    border-bottom: 2px solid #ddd;
                 }
+
+                .attendance-table select {
+                    padding: 5px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    background-color: #fff;
+                    width: 100%;
+                    max-width: 150px;
+                }
+
+                /* === Button Styles === */
+                .button-area {
+                    margin-top: 20px;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    justify-content: center;
+                }
+
                 .update-btn {
-                    padding: 10px 20px;
+                    display: inline-block;
+                    padding: 12px 30px;
                     font-size: 16px;
-                    background-color: #ffeb3b;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
                     border: none;
-                    border-radius: 5px;
+                    border-radius: 8px;
                     cursor: pointer;
-                    transition: background-color 0.3s;
+                    font-weight: 500;
+                    transition: var(--transition);
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                 }
-                .update-btn:hover {
-                    background-color: #fbc02d;
+
+                .update-btn:hover:not(:disabled) {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
                 }
+
+                .update-btn:disabled {
+                    background-color: #ccc;
+                    cursor: not-allowed;
+                    transform: none;
+                }
+
                 #updateStatus {
-                    margin-left: 10px;
                     font-size: 14px;
-                    color: #555;
+                    color: #666;
+                    font-weight: 500;
                 }
+
+                /* === Footer Styles === */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    margin-top: auto;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* === Responsive === */
                 @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+                    h2 {
+                        font-size: min(5.5vw, 1.5rem);
+                        white-space: nowrap;
+                    }
                     .attendance-table th, .attendance-table td {
-                        padding: 8px;
+                        padding: 8px 4px;
+                        font-size: 13px;
                     }
                 }
             </style>
@@ -2691,8 +4585,11 @@ def etc_check(week):
 
                 function updateRemarks() {
                     const button = document.getElementById("updateButton");
+                    const statusText = document.getElementById("updateStatus");
+
                     button.disabled = true;
-                    button.innerText = "업데이트 중...";
+                    button.textContent = "저장중...";
+                    statusText.textContent = "";
 
                     const weekDate = "{{ week }}";  // 직접 사용
 
@@ -2705,8 +4602,13 @@ def etc_check(week):
                             const latenessData = [];
 
                             document.querySelectorAll(".attendance-table tbody tr").forEach((row, index) => {
+                                // display가 none인 행(필터링된 행)도 업데이트 대상에 포함할지 여부는 로직에 따라 다르지만,
+                                // 현재 화면 구조상 DOM 순서(index)에 의존하므로 전체 행을 순회합니다.
                                 const name = row.cells[0].innerText.trim();
-                                const remarks = row.cells[4].querySelector("select").value.trim();
+
+                                // Select box 찾기 (구조 변경에 맞춰 수정)
+                                const select = row.querySelector("select");
+                                const remarks = select ? select.value.trim() : "";
 
                                 updates.push({ row_id: index, remarks: remarks });
 
@@ -2727,10 +4629,12 @@ def etc_check(week):
                         .then(response => response.json())
                         .then(data => {
                             button.disabled = false;
-                            button.innerText = "비고 업데이트";
+                            button.textContent = "비고 업데이트";
 
                             if (data.status === "success") {
                                 alert("비고가 성공적으로 업데이트되었습니다.");
+                                const now = new Date();
+                                statusText.textContent = `저장 완료: ${now.toLocaleTimeString()}`;
                             } else {
                                 alert("비고 업데이트에 실패했습니다.");
                             }
@@ -2739,20 +4643,23 @@ def etc_check(week):
                             console.error("비고 업데이트 중 오류:", error);
                             alert("오류가 발생했습니다.");
                             button.disabled = false;
-                            button.innerText = "비고 업데이트";
+                            button.textContent = "비고 업데이트";
                         });
                 }
 
                 function filterRows() {
                     const rows = document.querySelectorAll('.attendance-table tbody tr');
                     rows.forEach(row => {
-                        const course = row.querySelector('.course').innerText;
-                        const late = row.querySelector('.late').innerText;
-                        const absence = row.querySelector('.absence').innerText;
+                        // data 속성을 활용하는 것이 더 안전하지만, 기존 로직 유지를 위해 클래스/텍스트 기반 탐색
+                        const course = row.querySelector('.course').innerText.trim();
+                        const late = row.querySelector('.late').innerText.trim();
+                        const absence = row.querySelector('.absence').innerText.trim();
+
+                        // 조건: 게스트가 아니면서, 지각(O)도 아니고 불참(O)도 아닌 경우 숨김
                         if (course !== '게스트' && late !== 'O' && absence !== 'O') {
                             row.style.display = 'none';
                         } else {
-                            row.style.display = '';
+                            row.style.display = ''; // 기본값(table-row)으로 복귀
                         }
                     });
                 }
@@ -2761,58 +4668,84 @@ def etc_check(week):
             </script>
         </head>
         <body>
-            <h2>{{ attendance_title }}</h2>
-            {% if sheet_data %}
-            <div class="attendance-table-container">
-                <table class="attendance-table">
-                    <thead>
-                        <tr>
-                            <th>이름</th>
-                            <th>참여자 구분</th>
-                            <th>지각</th>
-                            <th>불참</th>
-                            <th>비고</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in sheet_data %}
-                        <tr>
-                            <td>{{ row['이름'] }}</td>
-                            <td class="course">{{ row['참여자 구분'] }}</td>
-                            <td class="late">
-                                {% if row['지각'] == "TRUE" %}
-                                    O
-                                {% else %}
-                                    &nbsp;
-                                {% endif %}
-                            </td>
-                            <td class="absence">
-                                {% if row['불참'] == "TRUE" %}
-                                    O
-                                {% else %}
-                                    &nbsp;
-                                {% endif %}
-                            </td>
-                            <td>
-                                <select onchange="handleRemarksChange({{ loop.index0 }}, this)">
-                                    <option value="" {% if row['비고'] == "" %} selected {% endif %}></option>
-                                    <option value="게스트비 확인" {% if row['비고'] == "게스트비 확인" %} selected {% endif %}>게스트비 확인</option>
-                                    <option value="불참비 확인" {% if row['비고'] == "불참비 확인" %} selected {% endif %}>불참비 확인</option>
-                                    <option value="지각콕 확인" {% if row['비고'] == "지각콕 확인" %} selected {% endif %}>지각콕 확인</option>
-                                </select>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                <button id="updateButton" class="update-btn" onclick="updateRemarks()">비고 업데이트</button>
-                <span id="updateStatus"></span>
-            </div>
-            {% else %}
-            <p>조건에 맞는 데이터가 없습니다.</p>
-            {% endif %}
+            <header>
+                <div class="header-container">
+                    <a href="/" class="logo-title">
+                        <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </a>
+                </div>
+            </header>
+
+            <main>
+                <h2>{{ attendance_title }}</h2>
+
+                {% if sheet_data %}
+                <div class="attendance-table-container">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th width="15%">이름</th>
+                                <th width="15%">참여자 구분</th>
+                                <th width="10%">지각</th>
+                                <th width="10%">불참</th>
+                                <th width="50%">비고</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in sheet_data %}
+                            <tr>
+                                <td>{{ row['이름'] }}</td>
+                                <td class="course">{{ row['참여자 구분'] }}</td>
+                                <td class="late">
+                                    {% if row['지각'] == "TRUE" %}
+                                        <span style="color: red; font-weight: bold;">O</span>
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                                <td class="absence">
+                                    {% if row['불참'] == "TRUE" %}
+                                        <span style="color: red; font-weight: bold;">O</span>
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <select onchange="handleRemarksChange({{ loop.index0 }}, this)">
+                                        <option value="" {% if row['비고'] == "" %} selected {% endif %}>- 선택 -</option>
+                                        <option value="게스트비 확인" {% if row['비고'] == "게스트비 확인" %} selected {% endif %}>게스트비 확인</option>
+                                        <option value="불참비 확인" {% if row['비고'] == "불참비 확인" %} selected {% endif %}>불참비 확인</option>
+                                        <option value="지각콕 확인" {% if row['비고'] == "지각콕 확인" %} selected {% endif %}>지각콕 확인</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="button-area">
+                    <button id="updateButton" class="update-btn" onclick="updateRemarks()">비고 업데이트</button>
+                    <span id="updateStatus"></span>
+                </div>
+
+                {% else %}
+                <p style="margin-top: 2rem;">조건에 맞는 데이터가 없습니다.</p>
+                {% endif %}
+            </main>
+
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """, sheet_data=sheet_data, week=week, attendance_title=attendance_title)
@@ -3051,13 +4984,28 @@ def notice_selection():
                         font-size: 1.8rem;
                     }
 
+                    /* 버튼 그룹을 가로로 유지 */
                     .button-group {
-                        flex-direction: column;
-                        gap: 8px;
+                        display: flex;
+                        flex-direction: row; /* 가로 배치 강제 */
+                        justify-content: center;
+                        gap: 6px; /* 간격 살짝 축소 */
+                        flex-wrap: nowrap; /* 줄바꿈 방지 */
                     }
 
-                    .btn {
-                        width: 100%;
+                    /* 모바일 화면에 맞춰 버튼 크기 최적화 */
+                    .attendance-selection-btn {
+                        padding: 8px 12px; /* 패딩 축소 */
+                        font-size: 13px;    /* 글자 크기 축소 */
+                        flex: 1;           /* 버튼이 동일한 비율로 너비를 가짐 */
+                        max-width: 100px;  /* 너무 커지는 것 방지 */
+                        white-space: nowrap; /* 텍스트 한 줄 유지 */
+                        text-align: center;
+                    }
+
+                    /* 테이블 패딩 조절 */
+                    .attendance-selection-table td {
+                        padding: 10px 5px;
                     }
                 }
             </style>
@@ -3261,6 +5209,7 @@ def notice():
                     color: var(--primary-blue);
                     margin-bottom: 1.5rem;
                     text-align: center;
+                    white-space: nowrap;
                 }
 
                 fieldset {
@@ -3386,6 +5335,11 @@ def notice():
 
                     .btn-container {
                         flex-direction: column;
+                    }
+
+                    /* 아래 내용 추가: 모바일에서 폰트 크기 축소 */
+                    .card-title {
+                        font-size: 1.1rem; /* 1.5rem에서 축소하여 한 줄에 들어오게 함 */
                     }
                 }
             </style>
@@ -3697,13 +5651,28 @@ def notice_selection_guest():
                         font-size: 1.8rem;
                     }
 
+                    /* 버튼 그룹을 가로로 유지 */
                     .button-group {
-                        flex-direction: column;
-                        gap: 8px;
+                        display: flex;
+                        flex-direction: row; /* 가로 배치 강제 */
+                        justify-content: center;
+                        gap: 6px; /* 간격 살짝 축소 */
+                        flex-wrap: nowrap; /* 줄바꿈 방지 */
                     }
 
-                    .btn {
-                        width: 100%;
+                    /* 모바일 화면에 맞춰 버튼 크기 최적화 */
+                    .attendance-selection-btn {
+                        padding: 8px 12px; /* 패딩 축소 */
+                        font-size: 13px;    /* 글자 크기 축소 */
+                        flex: 1;           /* 버튼이 동일한 비율로 너비를 가짐 */
+                        max-width: 100px;  /* 너무 커지는 것 방지 */
+                        white-space: nowrap; /* 텍스트 한 줄 유지 */
+                        text-align: center;
+                    }
+
+                    /* 테이블 패딩 조절 */
+                    .attendance-selection-table td {
+                        padding: 10px 5px;
                     }
                 }
             </style>
@@ -3914,6 +5883,7 @@ ex) 목요일 운동신청이면 수요일 3시부터 신청 인정
                     color: var(--primary-blue);
                     margin-bottom: 1.5rem;
                     text-align: center;
+                    white-space: nowrap;
                 }
 
                 fieldset {
@@ -4039,6 +6009,11 @@ ex) 목요일 운동신청이면 수요일 3시부터 신청 인정
 
                     .btn-container {
                         flex-direction: column;
+                    }
+
+                    /* 아래 내용 추가: 모바일에서 폰트 크기 축소 */
+                    .card-title {
+                        font-size: 0.9rem; /* 1.5rem에서 축소하여 한 줄에 들어오게 함 */
                     }
                 }
             </style>
