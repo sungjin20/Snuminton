@@ -1,4 +1,4 @@
-UPDATE_DATE = "2025년 12월 1일"
+UPDATE_DATE = "2025년 12월 25일"
 
 executives = ["김영준", "이주원", "김상원", "조재형", "김민성", "윤주영", "이지호", "강예원"]
 
@@ -61,17 +61,4 @@ links = {
         'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSejaedVDkLM9VcOw0n53R5EXuN1YJs51BDlC6nCwqy3UIwtEw/viewform',
         'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[3]}/edit?usp=drivesdk'
     },
-
-    # '2025-11-25': {
-    #     'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSd4FNPL45tyM5gGdHO8KHPgSMqxWM5amyosT83LAnaVbKkx1Q/viewform',
-    #     'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[4]}/edit?usp=drivesdk'
-    # },
-    # '2025-11-27': {
-    #     'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSc6tQbrfWO7pOMi7kXPNkcVxQFajtRFkTIzEykLqXwhAqaeuw/viewform',
-    #     'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[4]}/edit?usp=drivesdk'
-    # },
-    # '2025-11-29': {
-    #     'form_link': 'https://docs.google.com/forms/d/e/1FAIpQLSf51s-FJvgVtjJTeGlo6EzHev_khtkTHkXm4r0ap8GfxUOtDw/viewform',
-    #     'status_link': f'https://docs.google.com/spreadsheets/d/{list(sheet_ids.values())[4]}/edit?usp=drivesdk'
-    # },
 }
