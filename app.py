@@ -51,99 +51,335 @@ def index():
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>스누민턴 운영부 - 메뉴</title>
-            <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+            <title>스누민턴 운영부</title>
+            <link rel="icon" href="static/스누민턴%20로고.png" type="image/png">
+
+            <!-- Google Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
                 body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
-                    height: 100vh;
-                    margin: 0;
-                    font-family: Arial, sans-serif;
-                    background-color: #f9f9f9;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
                 }
-                .logo-container {
-                    margin-bottom: 20px;
-                }
-                .logo {
-                    width: 80px;
-                    height: 80px;
-                }
-                .title {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 20px;
+
+                .hero {
                     text-align: center;
+                    margin-bottom: 3rem;
+                    max-width: 800px;
                 }
-                .menu-container {
+
+                .hero h1 {
+                    font-size: 2.5rem;
+                    margin-bottom: 1rem;
+                    color: var(--primary-blue);
+                }
+
+                .hero p {
+                    font-size: 1.1rem;
+                    color: #555;
+                }
+
+                /* Menu Grid */
+                .menu-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 1.5rem;
+                    width: 100%;
+                    max-width: 1000px;
+                }
+
+                .menu-card {
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: var(--shadow);
+                    transition: var(--transition);
                     display: flex;
                     flex-direction: column;
-                    gap: 10px;
-                    width: 90%;
-                    max-width: 400px;
+                    height: 100%;
                 }
-                .menu-btn {
-                    width: 100%;
-                    padding: 15px;
-                    font-size: 18px;
-                    font-weight: bold;
-                    background-color: #ffeb3b;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
+
+                .menu-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+                }
+
+                .card-icon {
+                    background-color: var(--secondary-blue);
+                    padding: 1.5rem;
+                    text-align: center;
+                    font-size: 2.5rem;
+                    color: var(--primary-blue);
+                }
+
+                .card-content {
+                    padding: 1.5rem;
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .card-content h3 {
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+                    color: var(--primary-blue);
+                }
+
+                .card-content p {
+                    color: #666;
+                    margin-bottom: 1rem;
+                    flex-grow: 1;
+                }
+
+                .btn {
+                    display: inline-block;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: var(--transition);
                     text-align: center;
                 }
-                .menu-btn:hover {
-                    background-color: #fbc02d;
+
+                .btn:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
                 }
-                @media (max-width: 480px) {
-                    .title {
-                        font-size: 20px;
-                    }
-                    .menu-btn {
-                        font-size: 16px;
-                        padding: 12px;
-                    }
-                }
+
+                /* Footer Styles */
                 footer {
-                    position: absolute;
-                    bottom: 10px;
-                    font-size: 14px;
-                    color: #888;
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
                     text-align: center;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+
+                    .hero h1 {
+                        font-size: 2rem;
+                    }
+
+                    .menu-grid {
+                        grid-template-columns: 1fr;
+                    }
                 }
             </style>
         </head>
         <body>
-            <div class="logo-container">
-                <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
-            </div>
-            <div class="title">스누민턴 운영부</div>
-            <div class="menu-container">
-                <a href="{{ url_for('attendance_selection') }}">
-                    <button class="menu-btn">1. 출석 체크</button>
-                </a>
-                <a href="{{ url_for('etc_selection') }}">
-                    <button class="menu-btn">2. 지각/불참/게스트비 체크</button>
-                </a>
-                <a href="{{ url_for('notice_selection') }}">
-                    <button class="menu-btn">3. 운동신청공지 복사</button>
-                </a>
-                <a href="{{ url_for('notice_selection_guest') }}">
-                    <button class="menu-btn">4. 게스트 운동신청공지 복사</button>
-                </a>
-                <a href="{{ auth_url_main }}">
-                    <button class="menu-btn">5. 메시지 전송</button>
-                </a>
-                <a href="{{ auth_url_schedule }}">
-                    <button class="menu-btn">6. 시간표 공지</button>
-                </a>
-            </div>
-            <footer>© 2025 김성진. All rights reserved.<br>업데이트: """ + UPDATE_DATE + """</footer>
+            <!-- Header -->
+            <header>
+                <div class="header-container">
+                    <div class="logo-title">
+                        <img class="logo" src="../static/스누민턴%20로고.png" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main>
+                <section class="hero">
+                    <h1>스누민턴 운영 관리 시스템</h1>
+                    <p>동아리 운영에 필요한 모든 기능을 한 곳에서 간편하게 관리하세요</p>
+                </section>
+
+                <section class="menu-grid">
+                    <!-- 출석 체크 -->
+                    <div class="menu-card">
+                        <div class="card-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>출석 체크</h3>
+                            <p>동아리 활동 출석을 간편하게 관리하고 기록하세요</p>
+                            <a href="{{ url_for('attendance_selection') }}" class="btn">사용하기</a>
+                        </div>
+                    </div>
+
+                    <!-- 지각/불참/게스트비 체크 -->
+                    <div class="menu-card">
+                        <div class="card-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>지각/불참/게스트비 체크</h3>
+                            <p>지각, 불참, 게스트비 관리를 효율적으로 처리하세요</p>
+                            <a href="{{ url_for('etc_selection') }}" class="btn">사용하기</a>
+                        </div>
+                    </div>
+
+                    <!-- 운동신청공지 복사 -->
+                    <div class="menu-card">
+                        <div class="card-icon">
+                            <i class="fas fa-copy"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>운동신청공지 복사</h3>
+                            <p>운동 신청 공지를 쉽게 생성하고 공유하세요</p>
+                            <a href="{{ url_for('notice_selection') }}" class="btn">사용하기</a>
+                        </div>
+                    </div>
+
+                    <!-- 게스트 운동신청공지 복사 -->
+                    <div class="menu-card">
+                        <div class="card-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>게스트 운동신청공지 복사</h3>
+                            <p>게스트를 위한 운동 신청 공지를 생성하세요</p>
+                            <a href="{{ url_for('notice_selection_guest') }}" class="btn">사용하기</a>
+                        </div>
+                    </div>
+
+                    <!-- 메시지 전송 -->
+                    <div class="menu-card">
+                        <div class="card-icon">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>메시지 전송</h3>
+                            <p>동아리 멤버들에게 공지를 빠르게 전송하세요</p>
+                            <a href="{{ auth_url_main }}" class="btn">사용하기</a>
+                        </div>
+                    </div>
+
+                    <!-- 시간표 공지 -->
+                    <div class="menu-card">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>시간표 공지</h3>
+                            <p>동아리 시간표를 공유하고 관리하세요</p>
+                            <a href="{{ auth_url_schedule }}" class="btn">사용하기</a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """, auth_url_main=auth_url_main, auth_url_schedule=auth_url_schedule)
@@ -211,96 +447,298 @@ def menu():
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 메뉴</title>
-            <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+            <link rel="icon" href="static/스누민턴%20로고.png" type="image/png">
+
+            <!-- Google Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
                 body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
-                    height: 100vh;
-                    margin: 0;
-                    font-family: Arial, sans-serif;
-                    background-color: #f9f9f9;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
                 }
-                .logo-container {
-                    margin-bottom: 20px;
-                }
-                .logo {
-                    width: 80px;
-                    height: 80px;
-                }
-                .title {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 20px;
+
+                .hero {
                     text-align: center;
+                    margin-bottom: 3rem;
+                    max-width: 800px;
                 }
-                .menu-container {
+
+                .hero h1 {
+                    font-size: 2.5rem;
+                    margin-bottom: 1rem;
+                    color: var(--primary-blue);
+                }
+
+                .hero p {
+                    font-size: 1.1rem;
+                    color: #555;
+                }
+
+                /* Menu Grid */
+                .menu-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 1.5rem;
+                    width: 100%;
+                    max-width: 1000px;
+                }
+
+                .menu-card {
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: var(--shadow);
+                    transition: var(--transition);
                     display: flex;
                     flex-direction: column;
-                    gap: 10px;
-                    width: 90%;
-                    max-width: 400px;
+                    height: 100%;
                 }
-                .menu-btn {
-                    width: 100%;
-                    padding: 15px;
-                    font-size: 18px;
-                    font-weight: bold;
-                    background-color: #ffeb3b;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
+
+                .menu-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+                }
+
+                .card-icon {
+                    background-color: var(--secondary-blue);
+                    padding: 1.5rem;
+                    text-align: center;
+                    font-size: 2.5rem;
+                    color: var(--primary-blue);
+                }
+
+                .card-content {
+                    padding: 1.5rem;
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .card-content h3 {
+                    font-size: 1.3rem;
+                    margin-bottom: 0.5rem;
+                    color: var(--primary-blue);
+                }
+
+                .card-content p {
+                    color: #666;
+                    margin-bottom: 1rem;
+                    flex-grow: 1;
+                }
+
+                .btn {
+                    display: inline-block;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: var(--transition);
                     text-align: center;
                 }
-                .menu-btn:hover {
-                    background-color: #fbc02d;
+
+                .btn:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
                 }
-                .home-btn {
-                    background-color: #4caf50;
-                    color: white;
-                }
-                .home-btn:hover {
-                    background-color: #388e3c;
-                }
-                @media (max-width: 480px) {
-                    .title {
-                        font-size: 20px;
-                    }
-                    .menu-btn {
-                        font-size: 16px;
-                        padding: 12px;
-                    }
-                }
+
+                /* Footer Styles */
                 footer {
-                    position: absolute;
-                    bottom: 10px;
-                    font-size: 14px;
-                    color: #888;
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
                     text-align: center;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+
+                    .hero h1 {
+                        font-size: 2rem;
+                    }
+
+                    .menu-grid {
+                        grid-template-columns: 1fr;
+                    }
                 }
             </style>
         </head>
         <body>
-            <div class="logo-container">
-                <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
-            </div>
-            <div class="title">메뉴</div>
-            <div class="menu-container">
-                <a href="{{ url_for('index') }}">
-                    <button class="menu-btn home-btn">0. 홈으로</button>
-                </a>
-                <a href="{{ url_for('send_message') }}">
-                    <button class="menu-btn">1. 메시지 전송</button>
-                </a>
-                <a href="{{ url_for('send_short_message') }}">
-                    <button class="menu-btn">2. 짧은 공지 전송</button>
-                </a>
-            </div>
-            <footer>© 2025 김성진. All rights reserved.<br>업데이트: """ + UPDATE_DATE + """</footer>
+            <!-- Header -->
+            <header>
+                <div class="header-container">
+                    <div class="logo-title">
+                        <img class="logo" src="static/스누민턴%20로고.png" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main>
+                <section class="hero">
+                    <h1>스누민턴 운영 관리 시스템</h1>
+                    <p>동아리 운영에 필요한 모든 기능을 한 곳에서 간편하게 관리하세요</p>
+                </section>
+
+                <section class="menu-grid">
+                    <!-- 홈으로 -->
+                    <div class="menu-card">
+                        <div class="card-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>홈으로</h3>
+                            <p>메인 화면으로 이동합니다</p>
+                            <a href="{{ url_for('index') }}" class="btn">사용하기</a>
+                        </div>
+                    </div>
+
+                    <!-- 메시지 전송 -->
+                    <div class="menu-card">
+                        <div class="card-icon">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>메시지 전송</h3>
+                            <p>동아리 멤버들에게 공지를 전송합니다</p>
+                            <a href="{{ url_for('send_message') }}" class="btn">사용하기</a>
+                        </div>
+                    </div>
+
+                    <!-- 짧은 공지 전송 -->
+                    <div class="menu-card">
+                        <div class="card-icon">
+                            <i class="fas fa-comment-alt"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>짧은 공지 전송</h3>
+                            <p>간단한 공지를 전송합니다</p>
+                            <a href="{{ url_for('send_short_message') }}" class="btn">사용하기</a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """)
@@ -1296,36 +1734,282 @@ def attendance_selection():
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 출석부 선택</title>
-            <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+            <link rel="icon" href="static/스누민턴 로고.png" type="image/png">
+
+            <!-- Google Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; flex-direction: column; font-family: Arial, sans-serif; }
-                .attendance-selection-table { width: 100%; max-width: 400px; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
-                .attendance-selection-table th, .attendance-selection-table td { padding: 10px; text-align: center; border: 1px solid #ddd; }
-                .attendance-selection-btn { width: 100%; padding: 15px; font-size: 18px; background-color: #ffeb3b; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
-                .attendance-selection-btn:hover { background-color: #fbc02d; }
-                .button-group { display: flex; justify-content: space-between; gap: 10px; }
-                .date-tag { font-size: 14px; color: #555; margin-top: 5px; }
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
+                }
+
+                .hero {
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    max-width: 800px;
+                }
+
+                .hero h1 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    color: var(--primary-blue);
+                }
+
+                /* Table Styles */
+                .attendance-selection-table {
+                    width: 100%;
+                    max-width: 800px;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: var(--shadow);
+                }
+
+                .attendance-selection-table th {
+                    background-color: var(--secondary-blue);
+                    color: var(--primary-blue);
+                    padding: 15px;
+                    text-align: center;
+                    font-weight: 700;
+                }
+
+                .attendance-selection-table td {
+                    padding: 12px 15px;
+                    text-align: center;
+                    border-bottom: 1px solid #eee;
+                }
+
+                .attendance-selection-table tr:last-child td {
+                    border-bottom: none;
+                }
+
+                .button-group {
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                }
+
+                .attendance-selection-btn {
+                    display: inline-block;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: var(--transition);
+                    border: none;
+                    cursor: pointer;
+                    font-size: 16px;
+                }
+
+                .attendance-selection-btn:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
+                }
+
                 .today-btn {
-                    background-color: #FB8C00 !important; /* 초록색 */
+                    background-color: #FB8C00;
                     color: black;
                     font-weight: bold;
                 }
+
+                .today-btn:hover {
+                    background-color: #e67c00;
+                }
+
                 .attendance-selection-btn.past-btn {
-                    background-color: #ccc !important;
+                    background-color: #ccc;
                     color: #666;
+                }
+
+                .attendance-selection-btn.past-btn:hover {
+                    background-color: #bbb;
+                }
+
+                .date-tag {
+                    font-size: 14px;
+                    color: #555;
+                    margin-top: 5px;
+                    display: block;
+                }
+
+                /* Footer Styles */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    width: 100%;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+
+                    .hero h1 {
+                        font-size: 1.8rem;
+                    }
+
+                    .button-group {
+                        flex-direction: column;
+                        gap: 8px;
+                    }
+
+                    .btn {
+                        width: 100%;
+                    }
                 }
             </style>
         </head>
         <body>
-            <table class="attendance-selection-table">
-                <thead>
-                    <tr>
-                        <th>주차</th>
-                        <th>운동 신청 현황</th>
-                    </tr>
-                </thead>
-                {{ generate_html(sheet_ids, links, mode)|safe }}
-            </table>
+            <!-- Header -->
+            <header>
+                <div class="header-container">
+                    <div class="logo-title">
+                        <img class="logo" src="static/스누민턴 로고.png" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main>
+                <div class="hero">
+                    <h1>출석부 선택</h1>
+                </div>
+
+                <table class="attendance-selection-table">
+                    <thead>
+                        <tr>
+                            <th>주차</th>
+                            <th>운동 신청 현황</th>
+                        </tr>
+                    </thead>
+                    {{ generate_html(sheet_ids, links, mode)|safe }}
+                </table>
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """, generate_html=generate_html, sheet_ids=sheet_ids, links=links, mode="attendance")
@@ -1539,36 +2223,282 @@ def etc_selection():
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 출석부 선택</title>
-            <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+            <link rel="icon" href="static/스누민턴 로고.png" type="image/png">
+
+            <!-- Google Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; flex-direction: column; font-family: Arial, sans-serif; }
-                .attendance-selection-table { width: 100%; max-width: 400px; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
-                .attendance-selection-table th, .attendance-selection-table td { padding: 10px; text-align: center; border: 1px solid #ddd; }
-                .attendance-selection-btn { width: 100%; padding: 15px; font-size: 18px; background-color: #ffeb3b; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
-                .attendance-selection-btn:hover { background-color: #fbc02d; }
-                .button-group { display: flex; justify-content: space-between; gap: 10px; }
-                .date-tag { font-size: 14px; color: #555; margin-top: 5px; }
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
+                }
+
+                .hero {
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    max-width: 800px;
+                }
+
+                .hero h1 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    color: var(--primary-blue);
+                }
+
+                /* Table Styles */
+                .attendance-selection-table {
+                    width: 100%;
+                    max-width: 800px;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: var(--shadow);
+                }
+
+                .attendance-selection-table th {
+                    background-color: var(--secondary-blue);
+                    color: var(--primary-blue);
+                    padding: 15px;
+                    text-align: center;
+                    font-weight: 700;
+                }
+
+                .attendance-selection-table td {
+                    padding: 12px 15px;
+                    text-align: center;
+                    border-bottom: 1px solid #eee;
+                }
+
+                .attendance-selection-table tr:last-child td {
+                    border-bottom: none;
+                }
+
+                .button-group {
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                }
+
+                .attendance-selection-btn {
+                    display: inline-block;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: var(--transition);
+                    border: none;
+                    cursor: pointer;
+                    font-size: 16px;
+                }
+
+                .attendance-selection-btn:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
+                }
+
                 .today-btn {
-                    background-color: #FB8C00 !important; /* 초록색 */
+                    background-color: #FB8C00;
                     color: black;
                     font-weight: bold;
                 }
+
+                .today-btn:hover {
+                    background-color: #e67c00;
+                }
+
                 .attendance-selection-btn.past-btn {
-                    background-color: #ccc !important;
+                    background-color: #ccc;
                     color: #666;
+                }
+
+                .attendance-selection-btn.past-btn:hover {
+                    background-color: #bbb;
+                }
+
+                .date-tag {
+                    font-size: 14px;
+                    color: #555;
+                    margin-top: 5px;
+                    display: block;
+                }
+
+                /* Footer Styles */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    width: 100%;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+
+                    .hero h1 {
+                        font-size: 1.8rem;
+                    }
+
+                    .button-group {
+                        flex-direction: column;
+                        gap: 8px;
+                    }
+
+                    .btn {
+                        width: 100%;
+                    }
                 }
             </style>
         </head>
         <body>
-            <table class="attendance-selection-table">
-                <thead>
-                    <tr>
-                        <th>주차</th>
-                        <th>운동 신청 현황</th>
-                    </tr>
-                </thead>
-                {{ generate_html(sheet_ids, links, mode)|safe }}
-            </table>
+            <!-- Header -->
+            <header>
+                <div class="header-container">
+                    <div class="logo-title">
+                        <img class="logo" src="static/스누민턴 로고.png" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main>
+                <div class="hero">
+                    <h1>출석부 선택</h1>
+                </div>
+
+                <table class="attendance-selection-table">
+                    <thead>
+                        <tr>
+                            <th>주차</th>
+                            <th>운동 신청 현황</th>
+                        </tr>
+                    </thead>
+                    {{ generate_html(sheet_ids, links, mode)|safe }}
+                </table>
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """, generate_html=generate_html, sheet_ids=sheet_ids, links=links, mode="etc")
@@ -1896,36 +2826,282 @@ def notice_selection():
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 운동 신청 공지 선택</title>
-            <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+            <link rel="icon" href="static/스누민턴 로고.png" type="image/png">
+
+            <!-- Google Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; flex-direction: column; font-family: Arial, sans-serif; }
-                .attendance-selection-table { width: 100%; max-width: 400px; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
-                .attendance-selection-table th, .attendance-selection-table td { padding: 10px; text-align: center; border: 1px solid #ddd; }
-                .attendance-selection-btn { width: 100%; padding: 15px; font-size: 18px; background-color: #ffeb3b; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
-                .attendance-selection-btn:hover { background-color: #fbc02d; }
-                .button-group { display: flex; justify-content: space-between; gap: 10px; }
-                .date-tag { font-size: 14px; color: #555; margin-top: 5px; }
-                .highlight-orange-btn {
-                    background-color: #FB8C00 !important; /* 진한 주황 */
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
+                }
+
+                .hero {
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    max-width: 800px;
+                }
+
+                .hero h1 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    color: var(--primary-blue);
+                }
+
+                /* Table Styles */
+                .attendance-selection-table {
+                    width: 100%;
+                    max-width: 800px;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: var(--shadow);
+                }
+
+                .attendance-selection-table th {
+                    background-color: var(--secondary-blue);
+                    color: var(--primary-blue);
+                    padding: 15px;
+                    text-align: center;
+                    font-weight: 700;
+                }
+
+                .attendance-selection-table td {
+                    padding: 12px 15px;
+                    text-align: center;
+                    border-bottom: 1px solid #eee;
+                }
+
+                .attendance-selection-table tr:last-child td {
+                    border-bottom: none;
+                }
+
+                .button-group {
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                }
+
+                .attendance-selection-btn {
+                    display: inline-block;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: var(--transition);
+                    border: none;
+                    cursor: pointer;
+                    font-size: 16px;
+                }
+
+                .attendance-selection-btn:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
+                }
+
+                .today-btn {
+                    background-color: #FB8C00;
                     color: black;
                     font-weight: bold;
                 }
+
+                .today-btn:hover {
+                    background-color: #e67c00;
+                }
+
                 .attendance-selection-btn.past-btn {
-                    background-color: #ccc !important;
+                    background-color: #ccc;
                     color: #666;
+                }
+
+                .attendance-selection-btn.past-btn:hover {
+                    background-color: #bbb;
+                }
+
+                .date-tag {
+                    font-size: 14px;
+                    color: #555;
+                    margin-top: 5px;
+                    display: block;
+                }
+
+                /* Footer Styles */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    width: 100%;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+
+                    .hero h1 {
+                        font-size: 1.8rem;
+                    }
+
+                    .button-group {
+                        flex-direction: column;
+                        gap: 8px;
+                    }
+
+                    .btn {
+                        width: 100%;
+                    }
                 }
             </style>
         </head>
         <body>
-            <table class="attendance-selection-table">
-                <thead>
-                    <tr>
-                        <th>주차</th>
-                        <th>운동 신청 공지</th>
-                    </tr>
-                </thead>
-                {{ generate_notice_html(sheet_ids, links, mode)|safe }}
-            </table>
+            <!-- Header -->
+            <header>
+                <div class="header-container">
+                    <div class="logo-title">
+                        <img class="logo" src="static/스누민턴 로고.png" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main>
+                <div class="hero">
+                    <h1>운동 날짜 선택</h1>
+                </div>
+
+                <table class="attendance-selection-table">
+                    <thead>
+                        <tr>
+                            <th>주차</th>
+                            <th>운동 신청 공지</th>
+                        </tr>
+                    </thead>
+                    {{ generate_notice_html(sheet_ids, links, mode)|safe }}
+                </table>
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """, generate_notice_html=generate_notice_html, sheet_ids=sheet_ids, links=links, mode="user")
@@ -1981,35 +3157,128 @@ def notice():
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 운동 신청 공지</title>
-            <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+            <link rel="icon" href="static/스누민턴 로고.png" type="image/png">
+
+            <!-- Google Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body { display: flex; justify-content: center; align-items: center; flex-direction: column; height: 100vh; margin: 0; font-family: Arial, sans-serif; padding: 20px; }
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
+                }
+
                 .container {
                     width: 100%;
-                    max-width: 600px;
-                    margin: auto;
+                    max-width: 800px;
+                    margin: 0 auto;
                 }
+
+                .card {
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: var(--shadow);
+                    transition: var(--transition);
+                    margin-bottom: 2rem;
+                    padding: 2rem;
+                }
+
+                .card-title {
+                    font-size: 1.5rem;
+                    color: var(--primary-blue);
+                    margin-bottom: 1.5rem;
+                    text-align: center;
+                }
+
                 fieldset {
-                    border: 2px solid #ccc;
+                    border: 2px solid var(--secondary-blue);
                     padding: 20px;
                     border-radius: 10px;
                     width: 100%;
                     box-sizing: border-box;
+                    margin-bottom: 1.5rem;
                 }
-                textarea {
-                    width: 100%;
-                    height: 300px;
-                    padding: 15px;
-                    font-size: 16px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    box-sizing: border-box;
+
+                legend {
+                    font-weight: bold;
+                    font-size: 1.1rem;
+                    padding: 0 10px;
+                    color: var(--primary-blue);
                 }
-                button { margin-top: 20px; padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
-                button:hover { background-color: #45a049; }
-                .logo-container { display: flex; flex-direction: column; align-items: center; }
-                .logo { width: 100px; height: 100px; margin-bottom: 10px; }
-                .title { font-size: 24px; font-weight: bold; color: #333; margin-bottom: 10px; }
+
                 .checkbox-group {
                     display: grid;
                     grid-template-columns: repeat(4, 1fr);
@@ -2027,36 +3296,156 @@ def notice():
                 .checkbox-group input[type="checkbox"] {
                     transform: scale(1.2);
                 }
+
+                textarea {
+                    width: 100%;
+                    height: 300px;
+                    padding: 15px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    box-sizing: border-box;
+                    margin-bottom: 1.5rem;
+                    font-family: 'Noto Sans KR', sans-serif;
+                }
+
+                .btn-container {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                }
+
+                .btn {
+                    display: inline-block;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: var(--transition);
+                    text-align: center;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 1rem;
+                }
+
+                .btn:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
+                }
+
+                /* Footer Styles */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    margin-top: auto;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+
+                    .checkbox-group {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+
+                    .btn-container {
+                        flex-direction: column;
+                    }
+                }
             </style>
         </head>
         <body>
-            <div class="logo-container">
-                <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
-            </div>
-            <div class="title">{{ title_text }}</div>
-
-            <div class="container">
-                <form method="post" onsubmit="showAlert()">
-                    <fieldset>
-                        <legend style="font-weight: bold; font-size: 16px;">참여 임원진 선택:</legend>
-                        <div class="checkbox-group" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
-                            {% for exec in executives %}
-                                <label>
-                                    <input type="checkbox" name="executives" value="{{ exec }}" {% if exec in selected_executives %}checked{% endif %}>
-                                    {{ exec }}
-                                </label>
-                            {% endfor %}
-                        </div>
-                    </fieldset>
-                    <div style="text-align: center; margin-top: 15px;">
-                        <button type="submit">임원진 추가</button>
+            <!-- Header -->
+            <header>
+                <div class="header-container">
+                    <div class="logo-title">
+                        <img class="logo" src="static/스누민턴 로고.png" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
                     </div>
-                </form>
+                </div>
+            </header>
 
-                <textarea id="noticeText">{{ notice_text }}</textarea>
-            </div>
-                                  
-            <button onclick="copyToClipboard()">공지 복사하기</button>
+            <!-- Main Content -->
+            <main>
+                <div class="container">
+                    <div class="card">
+                        <h2 class="card-title">{{ title_text }}</h2>
+
+                        <form method="post" onsubmit="showAlert()">
+                            <fieldset>
+                                <legend>참여 임원진 선택:</legend>
+                                <div class="checkbox-group">
+                                    {% for exec in executives %}
+                                        <label>
+                                            <input type="checkbox" name="executives" value="{{ exec }}" {% if exec in selected_executives %}checked{% endif %}>
+                                            {{ exec }}
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                            </fieldset>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <button type="submit" class="btn">임원진 추가</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <textarea id="noticeText">{{ notice_text }}</textarea>
+                        <div class="btn-container">
+                            <button class="btn" onclick="copyToClipboard()">공지 복사하기</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
 
             <script>
                 function showAlert() {
@@ -2083,36 +3472,282 @@ def notice_selection_guest():
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 게스트 운동 신청 공지 선택</title>
-            <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+            <link rel="icon" href="static/스누민턴 로고.png" type="image/png">
+
+            <!-- Google Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; flex-direction: column; font-family: Arial, sans-serif; }
-                .attendance-selection-table { width: 100%; max-width: 400px; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
-                .attendance-selection-table th, .attendance-selection-table td { padding: 10px; text-align: center; border: 1px solid #ddd; }
-                .attendance-selection-btn { width: 100%; padding: 15px; font-size: 18px; background-color: #ffeb3b; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
-                .attendance-selection-btn:hover { background-color: #fbc02d; }
-                .button-group { display: flex; justify-content: space-between; gap: 10px; }
-                .date-tag { font-size: 14px; color: #555; margin-top: 5px; }
-                                  .highlight-orange-btn {
-                    background-color: #FB8C00 !important; /* 진한 주황 */
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
+                }
+
+                .hero {
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    max-width: 800px;
+                }
+
+                .hero h1 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    color: var(--primary-blue);
+                }
+
+                /* Table Styles */
+                .attendance-selection-table {
+                    width: 100%;
+                    max-width: 800px;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: var(--shadow);
+                }
+
+                .attendance-selection-table th {
+                    background-color: var(--secondary-blue);
+                    color: var(--primary-blue);
+                    padding: 15px;
+                    text-align: center;
+                    font-weight: 700;
+                }
+
+                .attendance-selection-table td {
+                    padding: 12px 15px;
+                    text-align: center;
+                    border-bottom: 1px solid #eee;
+                }
+
+                .attendance-selection-table tr:last-child td {
+                    border-bottom: none;
+                }
+
+                .button-group {
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                }
+
+                .attendance-selection-btn {
+                    display: inline-block;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: var(--transition);
+                    border: none;
+                    cursor: pointer;
+                    font-size: 16px;
+                }
+
+                .attendance-selection-btn:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
+                }
+
+                .today-btn {
+                    background-color: #FB8C00;
                     color: black;
                     font-weight: bold;
                 }
+
+                .today-btn:hover {
+                    background-color: #e67c00;
+                }
+
                 .attendance-selection-btn.past-btn {
-                    background-color: #ccc !important;
+                    background-color: #ccc;
                     color: #666;
+                }
+
+                .attendance-selection-btn.past-btn:hover {
+                    background-color: #bbb;
+                }
+
+                .date-tag {
+                    font-size: 14px;
+                    color: #555;
+                    margin-top: 5px;
+                    display: block;
+                }
+
+                /* Footer Styles */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    width: 100%;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+
+                    .hero h1 {
+                        font-size: 1.8rem;
+                    }
+
+                    .button-group {
+                        flex-direction: column;
+                        gap: 8px;
+                    }
+
+                    .btn {
+                        width: 100%;
+                    }
                 }
             </style>
         </head>
         <body>
-            <table class="attendance-selection-table">
-                <thead>
-                    <tr>
-                        <th>주차</th>
-                        <th>게스트 운동 신청 공지</th>
-                    </tr>
-                </thead>
-                {{ generate_notice_html(sheet_ids, links, mode)|safe }}
-            </table>
+            <!-- Header -->
+            <header>
+                <div class="header-container">
+                    <div class="logo-title">
+                        <img class="logo" src="static/스누민턴 로고.png" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main>
+                <div class="hero">
+                    <h1>운동 날짜 선택</h1>
+                </div>
+
+                <table class="attendance-selection-table">
+                    <thead>
+                        <tr>
+                            <th>주차</th>
+                            <th>게스트 운동 신청 공지</th>
+                        </tr>
+                    </thead>
+                    {{ generate_notice_html(sheet_ids, links, mode)|safe }}
+                </table>
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
         </body>
         </html>
     """, generate_notice_html=generate_notice_html, sheet_ids=sheet_ids, links=links, mode="guest")
@@ -2175,38 +3810,278 @@ ex) 목요일 운동신청이면 수요일 3시부터 신청 인정
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>스누민턴 운영부 - 게스트 운동 신청 공지</title>
-            <link rel="icon" href="{{ url_for('static', filename='스누민턴 로고.png') }}" type="image/png">
+            <link rel="icon" href="static/스누민턴 로고.png" type="image/png">
+
+            <!-- Google Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <style>
-                body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: Arial, sans-serif; flex-direction: column; padding: 20px; }
-                textarea { width: 100%; max-width: 600px; height: 300px; padding: 15px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
-                button { margin-top: 20px; padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
-                button:hover { background-color: #45a049; }
-                .logo-container {
-                    position: relative;
+                :root {
+                    --primary-blue: #0066cc;
+                    --primary-yellow: #ffeb3b;
+                    --secondary-blue: #e6f0ff;
+                    --dark-gray: #333333;
+                    --light-gray: #f5f5f5;
+                    --white: #ffffff;
+                    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                    --transition: all 0.3s ease;
+                }
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                body {
+                    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+                    background-color: var(--light-gray);
+                    color: var(--dark-gray);
+                    line-height: 1.6;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Header Styles */
+                header {
+                    background-color: var(--white);
+                    box-shadow: var(--shadow);
+                    padding: 1rem 2rem;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                }
+
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .logo-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .logo {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--primary-blue);
+                }
+
+                /* Main Content Styles */
+                main {
+                    flex: 1;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    padding: 2rem;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    width: 100%;
                 }
-                .logo {
-                    width: 100px;
-                    height: 100px;
-                    margin-bottom: 0px;
+
+                .container {
+                    width: 100%;
+                    max-width: 800px;
+                    margin: 0 auto;
                 }
-                .title {
-                    font-size: 24px;
+
+                .card {
+                    background-color: var(--white);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: var(--shadow);
+                    transition: var(--transition);
+                    margin-bottom: 2rem;
+                    padding: 2rem;
+                }
+
+                .card-title {
+                    font-size: 1.5rem;
+                    color: var(--primary-blue);
+                    margin-bottom: 1.5rem;
+                    text-align: center;
+                }
+
+                fieldset {
+                    border: 2px solid var(--secondary-blue);
+                    padding: 20px;
+                    border-radius: 10px;
+                    width: 100%;
+                    box-sizing: border-box;
+                    margin-bottom: 1.5rem;
+                }
+
+                legend {
                     font-weight: bold;
-                    color: #333;
-                    margin-bottom: 10px;
+                    font-size: 1.1rem;
+                    padding: 0 10px;
+                    color: var(--primary-blue);
+                }
+
+                .checkbox-group {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 10px;
+                }
+
+                .checkbox-group label {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 5px;
+                    white-space: nowrap;
+                    font-size: 16px;
+                }
+
+                .checkbox-group input[type="checkbox"] {
+                    transform: scale(1.2);
+                }
+
+                textarea {
+                    width: 100%;
+                    height: 300px;
+                    padding: 15px;
+                    font-size: 16px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    box-sizing: border-box;
+                    margin-bottom: 1.5rem;
+                    font-family: 'Noto Sans KR', sans-serif;
+                }
+
+                .btn-container {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                }
+
+                .btn {
+                    display: inline-block;
+                    background-color: var(--primary-blue);
+                    color: var(--white);
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: var(--transition);
+                    text-align: center;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 1rem;
+                }
+
+                .btn:hover {
+                    background-color: #0052a3;
+                    transform: translateY(-2px);
+                }
+
+                /* Footer Styles */
+                footer {
+                    background-color: var(--dark-gray);
+                    color: var(--white);
+                    padding: 2rem;
+                    text-align: center;
+                    margin-top: auto;
+                }
+
+                .footer-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1.5rem;
+                    margin: 1rem 0;
+                }
+
+                .social-links a {
+                    color: var(--white);
+                    font-size: 1.5rem;
+                    transition: var(--transition);
+                }
+
+                .social-links a:hover {
+                    color: var(--primary-yellow);
+                }
+
+                .copyright {
+                    margin-top: 1rem;
+                    font-size: 0.9rem;
+                    color: #bbb;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .header-container {
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+
+                    .checkbox-group {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+
+                    .btn-container {
+                        flex-direction: column;
+                    }
                 }
             </style>
         </head>
         <body>
-            <div class="logo-container">
-                <img class="logo" src="{{ url_for('static', filename='스누민턴 로고.png') }}" alt="스누민턴 로고">
-            </div>
-            <div class="title">{{ title_text }}</div>
-            <textarea id="noticeText">{{ notice_text }}</textarea>
-            <button onclick="copyToClipboard()">공지 복사하기</button>
+            <!-- Header -->
+            <header>
+                <div class="header-container">
+                    <div class="logo-title">
+                        <img class="logo" src="static/스누민턴 로고.png" alt="스누민턴 로고">
+                        <div class="title">스누민턴 운영부</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main>
+                <div class="container">
+                    <div class="card">
+                        <h2 class="card-title">{{ title_text }}</h2>
+                    </div>
+
+                    <div class="card">
+                        <textarea id="noticeText">{{ notice_text }}</textarea>
+                        <div class="btn-container">
+                            <button class="btn" onclick="copyToClipboard()">공지 복사하기</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/snuminton/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="copyright">
+                        &copy; 2025 김성진. All rights reserved.<br>
+                        업데이트: """ + UPDATE_DATE + """
+                    </div>
+                </div>
+            </footer>
 
             <script>
                 function copyToClipboard() {
