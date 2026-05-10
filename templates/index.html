@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배드민턴 대회 조회</title>
+    <style>
+        :root {
+            --bg: #f3f7fb;
+            --panel: #ffffff;
+            --text: #1f2937;
+            --muted: #667085;
+            --border: #d9e2ec;
+            --primary: #0f766e;
+            --primary-hover: #115e59;
+            --primary-soft: #dff5f1;
+            --danger: #b42318;
+            --shadow: 0 20px 45px rgba(15, 23, 42, 0.06);
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", "Malgun Gothic", sans-serif;
+            background: linear-gradient(180deg, #eef7f4 0%, var(--bg) 260px);
+            color: var(--text);
+        }
+        .page {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 28px 18px 42px;
+        }
+        .hero {
+            margin-bottom: 18px;
+        }
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .layout {
+            display: grid;
+            grid-template-columns: 380px minmax(0, 1fr);
+            gap: 18px;
+            align-items: start;
+        }
+        .panel {
+            background: var(--panel);
+            border: 1px solid rgba(15, 118, 110, 0.09);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+        .panel-head {
+            padding: 20px 20px 14px;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .panel-head h2,
+        .panel-head h3 {
+            margin: 0;
+            font-size: 1.08rem;
+        }
+        .panel-head p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+        .contest-sidebar {
+            position: sticky;
+            top: 16px;
+            overflow: hidden;
+        }
+        .contest-list-wrap {
+            padding: 14px;
+        }
+        .contest-list-status {
+            padding: 0 6px 12px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
+        .contest-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 72vh;
+            overflow-y: auto;
+            padding: 2px;
+        }
+        .contest-card {
+            width: 100%;
+            border: 1px solid var(--border);
+            background: #fbfdfd;
+            border-radius: 16px;
+            padding: 14px;
+            text-align: left;
+            cursor: pointer;
+            transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+        }
+        .contest-card:hover {
+            border-color: rgba(15, 118, 110, 0.45);
+            transform: translateY(-1px);
+        }
+        .contest-card.active {
+            border-color: var(--primary);
+            background: var(--primary-soft);
+            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.12);
+        }
+        .contest-card h4 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+        .contest-card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.83rem;
+            color: var(--muted);
+        }
+        .contest-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--primary-soft);
+            color: #134e4a;
+            font-weight: 700;
+            font-size: 0.82rem;
+        }
+        .contest-sub {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+        .pagination {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 6px 4px;
+        }
+        .pagination .page-info {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            border: none;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-primary {
+            color: #fff;
+            background: var(--primary);
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+        .btn-secondary {
+            color: var(--text);
+            background: #edf2f7;
+        }
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        .btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+        .content-col {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .selected-contest {
+            padding: 20px;
+        }
+        .selected-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: start;
+            margin-bottom: 16px;
+        }
+        .selected-head h2 {
+            margin: 0 0 6px;
+            font-size: 1.35rem;
+        }
+        .selected-id {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .selected-empty {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px 16px;
+        }
+        .info-item {
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: #f8fafc;
+            border: 1px solid #ecf2f8;
+        }
+        .info-item strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.84rem;
+        }
+        .notice-box {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 14px;
+            background: #f8fafc;
+            border: 1px solid #ecf2f8;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .status {
+            min-height: 20px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .status.error {
+            color: var(--danger);
+        }
+        .status.success {
+            color: var(--primary-hover);
+        }
+        .form-body {
+            padding: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 700;
+            font-size: 0.94rem;
+        }
+        input,
+        select {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fff;
+            font-size: 0.96rem;
+        }
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+        }
+        .loading {
+            display: none;
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .result-body {
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .empty-result {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            min-width: 920px;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+            white-space: nowrap;
+        }
+        th {
+            background: #f8fafc;
+            font-size: 0.9rem;
+        }
+        td {
+            font-size: 0.92rem;
+        }
+
+        @media (max-width: 980px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+            .contest-sidebar {
+                position: static;
+            }
+            .contest-list {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .page {
+                padding: 18px 12px 28px;
+            }
+            .grid,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .selected-head,
+            .pagination {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="hero">
+        <h1>배드민턴 참가자 조회</h1>
+        <p>좌측 대회 목록에서 원하는 대회를 선택하면 상세 정보가 바로 표시되고, 같은 화면에서 참가자 조회를 이어서 진행할 수 있습니다.</p>
+    </div>
+
+    <div class="layout">
+        <aside class="panel contest-sidebar">
+            <div class="panel-head">
+                <h2>대회 목록</h2>
+                <p>Wekkuk 대회 리스트를 불러와서 선택할 수 있도록 구성했습니다.</p>
+            </div>
+            <div class="contest-list-wrap">
+                <div class="contest-list-status" id="contestListStatus">목록을 불러오는 중입니다...</div>
+                <div class="contest-list" id="contestList"></div>
+                <div class="pagination">
+                    <div class="page-info" id="pageInfo"></div>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-secondary" id="prevPageBtn">이전</button>
+                        <button type="button" class="btn btn-secondary" id="nextPageBtn">다음</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-col">
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>선택한 대회</h3>
+                    <p>대회를 클릭하면 상세 페이지에서 주요 정보를 읽어 표시합니다.</p>
+                </div>
+                <div class="selected-contest" id="selectedContest">
+                    <div class="selected-empty">아직 선택된 대회가 없습니다. 좌측 목록에서 대회를 선택해 주세요.</div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>참가자 조회</h3>
+                    <p>선택한 대회의 ID를 사용해 참가자 목록을 조회합니다.</p>
+                </div>
+                <div class="form-body">
+                    <div class="grid">
+                        <div>
+                            <label for="resolved_bct_id">선택된 대회 ID</label>
+                            <input type="text" id="resolved_bct_id" placeholder="대회를 선택하면 자동으로 채워집니다." readonly>
+                            <input type="hidden" id="bct_id">
+                        </div>
+                        <div>
+                            <label for="tem_sex_play">복식 구분</label>
+                            <select id="tem_sex_play">
+                                <option value="BD">혼복</option>
+                                <option value="MD">남복</option>
+                                <option value="FD">여복</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="tem_age">연령대</label>
+                            <input type="text" id="tem_age" placeholder="예: 20대">
+                        </div>
+                        <div>
+                            <label for="tem_level">등급</label>
+                            <input type="text" id="tem_level" placeholder="예: B">
+                        </div>
+                        <div>
+                            <label for="ply_affiliation">소속</label>
+                            <input type="text" id="ply_affiliation" placeholder="예: DNA">
+                        </div>
+                        <div>
+                            <label for="ply_name">선수명</label>
+                            <input type="text" id="ply_name" placeholder="예: 홍길동">
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px;" class="btn-row">
+                        <button class="btn btn-primary" id="searchBtn" type="button">조회</button>
+                        <button class="btn btn-secondary" id="refreshListBtn" type="button">목록 새로고침</button>
+                    </div>
+                    <div class="status" id="contestStatus" style="margin-top: 12px;"></div>
+                    <div class="loading" id="loadingMsg">데이터를 불러오는 중입니다...</div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>조회 결과</h3>
+                    <p>선택한 대회의 참가자 결과를 보여줍니다.</p>
+                </div>
+                <div class="result-body" id="result">
+                    <p class="empty-result">아직 조회 결과가 없습니다.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<script>
+    const API_URL = "http://localhost:5001/api/badminton";
+    const CONTEST_LIST_API_URL = "http://localhost:5001/api/contest-list";
+    const CONTEST_DETAIL_API_URL = "http://localhost:5001/api/contest";
+
+    const contestListEl = document.getElementById("contestList");
+    const contestListStatusEl = document.getElementById("contestListStatus");
+    const pageInfoEl = document.getElementById("pageInfo");
+    const prevPageBtn = document.getElementById("prevPageBtn");
+    const nextPageBtn = document.getElementById("nextPageBtn");
+    const selectedContestEl = document.getElementById("selectedContest");
+    const contestStatusEl = document.getElementById("contestStatus");
+    const resultEl = document.getElementById("result");
+    const loadingMsg = document.getElementById("loadingMsg");
+    const contestIdInput = document.getElementById("bct_id");
+    const resolvedIdInput = document.getElementById("resolved_bct_id");
+
+    let currentPage = 1;
+    let totalPages = 1;
+    let currentListItems = [];
+    let selectedContest = null;
+    let listToken = 0;
+    let detailToken = 0;
+
+    function escapeHtml(value) {
+        if (value === null || value === undefined) return "";
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
+
+    function setContestStatus(message, type = "") {
+        contestStatusEl.textContent = message;
+        contestStatusEl.className = type ? `status ${type}` : "status";
+    }
+
+    function updatePagination() {
+        pageInfoEl.textContent = `${currentPage} / ${totalPages} 페이지`;
+        prevPageBtn.disabled = currentPage <= 1;
+        nextPageBtn.disabled = currentPage >= totalPages;
+    }
+
+    function renderContestList(items) {
+        if (!items.length) {
+            contestListEl.innerHTML = `<div class="empty-result">표시할 대회가 없습니다.</div>`;
+            return;
+        }
+
+        contestListEl.innerHTML = items.map(item => {
+            const activeClass = selectedContest && selectedContest.id === item.id ? "active" : "";
+            return `
+                <button type="button" class="contest-card ${activeClass}" data-id="${escapeHtml(item.id)}">
+                    <div class="contest-card-meta">
+                        ${item.status ? `<span class="contest-badge">${escapeHtml(item.status)}</span>` : ""}
+                        ${item.period ? `<span>${escapeHtml(item.period)}</span>` : ""}
+                    </div>
+                    <h4>${escapeHtml(item.name)}</h4>
+                    <div class="contest-sub">${item.organizer_name ? escapeHtml(item.organizer_name) : "주최/주관 정보 없음"}</div>
+                    <div class="contest-sub" style="margin-top: 6px;">대회 ID: ${escapeHtml(item.id)}</div>
+                </button>
+            `;
+        }).join("");
+    }
+
+    async function loadContestList(page = 1) {
+        const token = ++listToken;
+        contestListStatusEl.textContent = "대회 목록을 불러오는 중입니다...";
+        contestListEl.innerHTML = "";
+
+        try {
+            const response = await fetch(`${CONTEST_LIST_API_URL}?page=${page}`);
+            const data = await response.json();
+
+            if (token !== listToken) return;
+
+            if (!response.ok || data.err !== "N") {
+                contestListStatusEl.textContent = data.err_msg || "대회 목록을 불러오지 못했습니다.";
+                pageInfoEl.textContent = "";
+                return;
+            }
+
+            currentPage = data.page;
+            totalPages = data.total_pages;
+            currentListItems = data.items || [];
+            contestListStatusEl.textContent = `${currentListItems.length}개의 대회를 불러왔습니다.`;
+            renderContestList(currentListItems);
+            updatePagination();
+        } catch (error) {
+            contestListStatusEl.textContent = "대회 목록을 불러오는 중 오류가 발생했습니다.";
+            pageInfoEl.textContent = "";
+        }
+    }
+
+    function renderSelectedContest(detail) {
+        const infoItems = [
+            ["대회 기간", detail.period],
+            ["대회 장소", detail.location],
+            ["주최", detail.host],
+            ["주관", detail.organizer],
+            ["후원", detail.support],
+            ["협찬", detail.sponsor]
+        ].filter(([, value]) => value);
+
+        selectedContestEl.innerHTML = `
+            <div class="selected-head">
+                <div>
+                    <h2>${escapeHtml(detail.name || "선택한 대회")}</h2>
+                    <div class="selected-id">대회 ID: ${escapeHtml(detail.id)}</div>
+                </div>
+                ${detail.status ? `<div class="contest-badge">${escapeHtml(detail.status)}</div>` : ""}
+            </div>
+            <div class="info-grid">
+                ${infoItems.map(([label, value]) => `
+                    <div class="info-item">
+                        <strong>${escapeHtml(label)}</strong>
+                        <div>${escapeHtml(value)}</div>
+                    </div>
+                `).join("")}
+            </div>
+            ${detail.notice ? `<div class="notice-box"><strong>안내</strong><div style="margin-top: 6px;">${escapeHtml(detail.notice)}</div></div>` : ""}
+        `;
+    }
+
+    async function selectContest(contestId) {
+        const token = ++detailToken;
+        const baseItem = currentListItems.find(item => item.id === contestId) || selectedContest;
+
+        if (baseItem) {
+            selectedContest = { ...baseItem };
+            renderContestList(currentListItems);
+        }
+
+        selectedContestEl.innerHTML = `<div class="selected-empty">대회 정보를 불러오는 중입니다...</div>`;
+        setContestStatus("대회가 선택되었습니다.", "success");
+        contestIdInput.value = contestId;
+        resolvedIdInput.value = contestId;
+
+        try {
+            const response = await fetch(`${CONTEST_DETAIL_API_URL}/${encodeURIComponent(contestId)}`);
+            const data = await response.json();
+
+            if (token !== detailToken) return;
+
+            if (!response.ok || data.err !== "N") {
+                selectedContestEl.innerHTML = `<div class="selected-empty">${escapeHtml(data.err_msg || "대회 정보를 불러오지 못했습니다.")}</div>`;
+                return;
+            }
+
+            selectedContest = data.item;
+            renderSelectedContest(selectedContest);
+            renderContestList(currentListItems);
+        } catch (error) {
+            if (token !== detailToken) return;
+            selectedContestEl.innerHTML = `<div class="selected-empty">대회 정보를 불러오는 중 오류가 발생했습니다.</div>`;
+        }
+    }
+
+    async function fetchPlayers() {
+        if (!contestIdInput.value) {
+            setContestStatus("먼저 대회를 선택해 주세요.", "error");
+            return;
+        }
+
+        const params = new URLSearchParams();
+        params.append("CT", "");
+        params.append("TI", "");
+        params.append("AP", "");
+        params.append("VR", "");
+        params.append("LA", "");
+        params.append("mode", "get_player");
+        params.append("out_type", "O");
+        params.append("bct_id", contestIdInput.value);
+        params.append("tem_sex_play", document.getElementById("tem_sex_play").value);
+        params.append("tem_age", document.getElementById("tem_age").value.trim());
+        params.append("tem_level", document.getElementById("tem_level").value.trim());
+        params.append("ply_affiliation", document.getElementById("ply_affiliation").value.trim());
+        params.append("ply_name", document.getElementById("ply_name").value.trim());
+
+        loadingMsg.style.display = "block";
+        resultEl.innerHTML = "";
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                body: params.toString()
+            });
+            const data = await response.json();
+
+            if (data.err !== "N") {
+                throw new Error(data.err_msg || "조회 실패");
+            }
+
+            renderResult(data.subItems);
+        } catch (error) {
+            resultEl.innerHTML = `<p class="empty-result">오류가 발생했습니다: ${escapeHtml(error.message)}</p>`;
+        } finally {
+            loadingMsg.style.display = "none";
+        }
+    }
+
+    function renderResult(items) {
+        if (!items || items.length === 0) {
+            resultEl.innerHTML = `<p class="empty-result">${escapeHtml((selectedContest && selectedContest.name) || "선택한 대회")}의 조회 결과가 없습니다.</p>`;
+            return;
+        }
+
+        const rows = items.map((item, index) => `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${escapeHtml(item.sex_play)}</td>
+                <td>${escapeHtml(item.age)}</td>
+                <td>${escapeHtml(item.level)}</td>
+                <td>${escapeHtml(item.ply1_name)}</td>
+                <td>${escapeHtml(item.ply1_affiliation)}</td>
+                <td>${escapeHtml(item.ply1_birth)}</td>
+                <td>${escapeHtml(item.ply1_gender)}</td>
+                <td>${escapeHtml(item.ply1_tShirt)}</td>
+                <td>${escapeHtml(item.ply2_name)}</td>
+                <td>${escapeHtml(item.ply2_affiliation)}</td>
+                <td>${escapeHtml(item.ply2_birth)}</td>
+                <td>${escapeHtml(item.ply2_gender)}</td>
+                <td>${escapeHtml(item.ply2_tShirt)}</td>
+            </tr>
+        `).join("");
+
+        resultEl.innerHTML = `
+            <div class="empty-result" style="margin-bottom: 12px;">
+                선택 대회: <strong>${escapeHtml((selectedContest && selectedContest.name) || "")}</strong>
+                / 대회 ID: ${escapeHtml(contestIdInput.value)}
+                / 총 ${items.length}건
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>복식</th>
+                        <th>연령대</th>
+                        <th>등급</th>
+                        <th>선수1</th>
+                        <th>소속1</th>
+                        <th>생년</th>
+                        <th>성별1</th>
+                        <th>티셔츠</th>
+                        <th>선수2</th>
+                        <th>소속2</th>
+                        <th>생년</th>
+                        <th>성별2</th>
+                        <th>티셔츠</th>
+                    </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+            </table>
+        `;
+    }
+
+    contestListEl.addEventListener("click", event => {
+        const button = event.target.closest(".contest-card");
+        if (!button) return;
+        selectContest(button.dataset.id);
+    });
+
+    prevPageBtn.addEventListener("click", () => {
+        if (currentPage > 1) {
+            loadContestList(currentPage - 1);
+        }
+    });
+
+    nextPageBtn.addEventListener("click", () => {
+        if (currentPage < totalPages) {
+            loadContestList(currentPage + 1);
+        }
+    });
+
+    document.getElementById("refreshListBtn").addEventListener("click", () => {
+        loadContestList(currentPage);
+    });
+
+    document.getElementById("searchBtn").addEventListener("click", fetchPlayers);
+
+    loadContestList(1);
+</script>
+</body>
+</html>
